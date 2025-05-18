@@ -87,8 +87,8 @@ Thank you for considering contributing! Please follow these steps:
 5. **Submit a Pull Request** and wait for review.
 
 ### 🔗 Connect with Me:
-`GitHub` - [Visit](https://github.com/AnshMNSoni) </br>
-`LinkedIn` - [Visit](https://linkedin.com/in/anshsoni)
+`GitHub` - [Visit](https://github.com/AnshMNSoni/PyShell) </br>
+`LinkedIn` - [Visit](https://linkedin.com/company/py-shell)
 
 ## Thankyou 😀<br/>
 
