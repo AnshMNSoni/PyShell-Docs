@@ -64,7 +64,7 @@ export function SiteFooter() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="https://github.com/AnshMNSoni/PyShell"
+                  href="https://github.com/AnshMNSoni/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground hover:text-primary"
@@ -74,7 +74,7 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link
-                  href="https://www.linkedin.com/posts/anshmnsoni_developers-pyshell-python-activity-7311986318236958720-OJBt"
+                  href="https://linkedin.com/in/anshmnsoni/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground hover:text-primary"
