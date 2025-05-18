@@ -74,7 +74,7 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link
-                  href="https://linkedin.com/in/anshmnsoni/"
+                  href="https://linkedin.com/company/py-shell"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground hover:text-primary"
