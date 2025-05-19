@@ -15,6 +15,29 @@ export default function DocsPage() {
       <div>
         <h1 className="scroll-m-20 text-4xl font-bold tracking-tight">Introduction</h1>
         <p className="text-lg text-muted-foreground mt-2">Get started with PyShell, the future of terminals/CLI</p>
+        <div className="my-6 rounded-lg border p-6 bg-muted/50">
+          <h3 className="font-medium text-lg mb-3">Documentation Contents</h3>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/docs" className="text-primary hover:underline">
+                Introduction
+              </Link>
+            </li>
+            <li>
+              <Link href="/docs/installation" className="text-primary hover:underline">
+                Installation Guide
+              </Link>
+            </li>
+            <li>
+              <Link href="/docs/features" className="text-primary hover:underline">
+                Features Overview
+              </Link>
+            </li>
+            <li className="text-muted-foreground">Commands (Coming Soon)</li>
+            <li className="text-muted-foreground">API Reference (Coming Soon)</li>
+            <li className="text-muted-foreground">Tutorials (Coming Soon)</li>
+          </ul>
+        </div>
       </div>
       <div className="space-y-6">
         <h2 className="scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight">What is PyShell?</h2>

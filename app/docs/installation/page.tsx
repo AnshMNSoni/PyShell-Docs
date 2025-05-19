@@ -4,6 +4,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Info, CheckCircle2 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Steps, StepItem } from "@/components/steps"
+import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Installation | PyShell Documentation",
@@ -285,6 +286,58 @@ export default function InstallationPage() {
           </Steps>
         </TabsContent>
       </Tabs>
+
+      <div className="mt-12 space-y-6">
+        <h2 className="text-2xl font-semibold">Troubleshooting</h2>
+
+        <div className="space-y-4">
+          <div className="rounded-lg border p-6">
+            <h3 className="font-medium text-lg mb-2">Common Installation Issues</h3>
+
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-medium">Missing Dependencies</h4>
+                <p className="text-muted-foreground mt-1">
+                  If you encounter errors about missing packages, try running:
+                </p>
+                <pre className="bg-muted p-2 rounded-md mt-2 overflow-x-auto">
+                  <code>pip install -r requirements.txt --upgrade</code>
+                </pre>
+              </div>
+
+              <div>
+                <h4 className="font-medium">Permission Errors</h4>
+                <p className="text-muted-foreground mt-1">On Linux/macOS, if you encounter permission errors, try:</p>
+                <pre className="bg-muted p-2 rounded-md mt-2 overflow-x-auto">
+                  <code>sudo pip install -r requirements.txt</code>
+                </pre>
+              </div>
+
+              <div>
+                <h4 className="font-medium">Python Version Conflicts</h4>
+                <p className="text-muted-foreground mt-1">
+                  If you have multiple Python versions installed, specify Python 3:
+                </p>
+                <pre className="bg-muted p-2 rounded-md mt-2 overflow-x-auto">
+                  <code>python3 -m pip install -r requirements.txt</code>
+                </pre>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-sm text-muted-foreground">
+            If you continue to experience issues, please check the{" "}
+            <Link href="https://github.com/AnshMNSoni/PyShell/issues" className="text-primary hover:underline">
+              GitHub issues
+            </Link>{" "}
+            or{" "}
+            <Link href="#" className="text-primary hover:underline">
+              contact support
+            </Link>
+            .
+          </p>
+        </div>
+      </div>
     </div>
   )
 }

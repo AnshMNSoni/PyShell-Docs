@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import {
   Sidebar,
   SidebarContent,
@@ -36,6 +36,7 @@ import { useState } from "react"
 
 export function DocsSidebar() {
   const pathname = usePathname()
+  const router = useRouter()
   const [openGroups, setOpenGroups] = useState({
     features: true,
     advanced: true,
@@ -51,6 +52,11 @@ export function DocsSidebar() {
       ...prev,
       [group]: !prev[group],
     }))
+  }
+
+  const handleFeatureClick = (feature: string) => {
+    // Navigate to features page with a hash to identify the specific feature
+    router.push(`/docs/features#${feature.toLowerCase().replace(/\s+/g, "-")}`, undefined, { shallow: true })
   }
 
   return (
@@ -100,59 +106,45 @@ export function DocsSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <Calculator className="h-4 w-4" />
-                        <span>Calculator</span>
-                      </Link>
+                    <SidebarMenuButton onClick={() => handleFeatureClick("calculator")}>
+                      <Calculator className="h-4 w-4" />
+                      <span>Calculator</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <Cloud className="h-4 w-4" />
-                        <span>Weather</span>
-                      </Link>
+                    <SidebarMenuButton onClick={() => handleFeatureClick("weather-tracking")}>
+                      <Cloud className="h-4 w-4" />
+                      <span>Weather</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <Calendar className="h-4 w-4" />
-                        <span>Task Scheduling</span>
-                      </Link>
+                    <SidebarMenuButton onClick={() => handleFeatureClick("task-scheduling")}>
+                      <Calendar className="h-4 w-4" />
+                      <span>Task Scheduling</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <Key className="h-4 w-4" />
-                        <span>Password Generator</span>
-                      </Link>
+                    <SidebarMenuButton onClick={() => handleFeatureClick("password-generator")}>
+                      <Key className="h-4 w-4" />
+                      <span>Password Generator</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <Music className="h-4 w-4" />
-                        <span>Music Player</span>
-                      </Link>
+                    <SidebarMenuButton onClick={() => handleFeatureClick("music-player")}>
+                      <Music className="h-4 w-4" />
+                      <span>Music Player</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <Mic className="h-4 w-4" />
-                        <span>Voice Input</span>
-                      </Link>
+                    <SidebarMenuButton onClick={() => handleFeatureClick("voice-input")}>
+                      <Mic className="h-4 w-4" />
+                      <span>Voice Input</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <GitBranch className="h-4 w-4" />
-                        <span>Git Integration</span>
-                      </Link>
+                    <SidebarMenuButton onClick={() => handleFeatureClick("git-integration")}>
+                      <GitBranch className="h-4 w-4" />
+                      <span>Git Integration</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
@@ -173,27 +165,24 @@ export function DocsSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <Command className="h-4 w-4" />
-                        <span>Commands</span>
-                      </Link>
+                    <SidebarMenuButton disabled className="opacity-70">
+                      <Command className="h-4 w-4" />
+                      <span>Commands</span>
+                      <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <Settings className="h-4 w-4" />
-                        <span>Configuration</span>
-                      </Link>
+                    <SidebarMenuButton disabled className="opacity-70">
+                      <Settings className="h-4 w-4" />
+                      <span>Configuration</span>
+                      <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <Code className="h-4 w-4" />
-                        <span>API Reference</span>
-                      </Link>
+                    <SidebarMenuButton disabled className="opacity-70">
+                      <Code className="h-4 w-4" />
+                      <span>API Reference</span>
+                      <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
@@ -214,27 +203,24 @@ export function DocsSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <FileCode className="h-4 w-4" />
-                        <span>Examples</span>
-                      </Link>
+                    <SidebarMenuButton disabled className="opacity-70">
+                      <FileCode className="h-4 w-4" />
+                      <span>Examples</span>
+                      <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <BookOpen className="h-4 w-4" />
-                        <span>Tutorials</span>
-                      </Link>
+                    <SidebarMenuButton disabled className="opacity-70">
+                      <BookOpen className="h-4 w-4" />
+                      <span>Tutorials</span>
+                      <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="#">
-                        <HelpCircle className="h-4 w-4" />
-                        <span>FAQ</span>
-                      </Link>
+                    <SidebarMenuButton disabled className="opacity-70">
+                      <HelpCircle className="h-4 w-4" />
+                      <span>FAQ</span>
+                      <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>

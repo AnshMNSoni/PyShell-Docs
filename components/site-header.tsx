@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
 import { SidebarTrigger } from "@/components/sidebar-provider"
-import { Terminal, Github, Menu } from "lucide-react"
+import { Terminal, Github, Menu, Linkedin } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { useState } from "react"
@@ -59,6 +59,12 @@ export function SiteHeader() {
             <Link href="https://github.com/AnshMNSoni/PyShell" target="_blank" rel="noopener noreferrer">
               <Github className="h-4 w-4" />
               <span className="sr-only">GitHub</span>
+            </Link>
+          </Button>
+          <Button variant="outline" size="icon" asChild>
+            <Link href="https://linkedin.com/company/py-shell" target="_blank" rel="noopener noreferrer">
+              <Linkedin className="h-4 w-4" />
+              <span className="sr-only">LinkedIn</span>
             </Link>
           </Button>
           <ModeToggle />

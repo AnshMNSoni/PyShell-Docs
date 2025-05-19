@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Terminal, GitBranch, Users, Download } from "lucide-react"
+import { Terminal, GitBranch, Code, Star } from "lucide-react"
 
 export function StatsSection() {
   const stats = [
@@ -16,14 +16,14 @@ export function StatsSection() {
       label: "Git Commits",
     },
     {
-      icon: Users,
-      value: "500+",
-      label: "Active Users",
+      icon: Code,
+      value: "5000+",
+      label: "Lines of Code",
     },
     {
-      icon: Download,
-      value: "1000+",
-      label: "Downloads",
+      icon: Star,
+      value: "4.9/5",
+      label: "User Rating",
     },
   ]
 

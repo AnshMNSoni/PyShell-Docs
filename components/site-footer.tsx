@@ -1,10 +1,25 @@
+"use client"
+
 import Link from "next/link"
 import { Terminal } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { usePathname } from "next/navigation"
+
+// Helper function to determine if the current page has a sidebar
+function useHasSidebar() {
+  const pathname = usePathname()
+  // Check if the current page is a docs page or any other page that has a sidebar
+  return pathname?.includes("/docs")
+}
 
 export function SiteFooter() {
+  const hasSidebar = useHasSidebar()
+
   return (
-    <footer className="border-t py-12 md:py-16 bg-muted/30">
+    <footer
+      className={`relative border-t py-12 md:py-16 bg-muted/30 ${
+        hasSidebar ? "md:ml-[var(--sidebar-width)] md:w-[calc(100%-var(--sidebar-width))]" : "w-full"
+      }`}
+    >
       <div className="container px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
@@ -64,7 +79,7 @@ export function SiteFooter() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="https://github.com/AnshMNSoni/"
+                  href="https://github.com/AnshMNSoni/PyShell"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground hover:text-primary"
@@ -82,6 +97,14 @@ export function SiteFooter() {
                   LinkedIn
                 </Link>
               </li>
+              <li>
+                <a
+                  href="mailto:developers.pyshell@gmail.com"
+                  className="text-sm text-muted-foreground hover:text-primary"
+                >
+                  developers.pyshell@gmail.com
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -89,16 +112,12 @@ export function SiteFooter() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 border-t border-border pt-8 mt-8">
           <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} PyShell. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="#" className="text-sm text-muted-foreground hover:text-primary">
-                Privacy Policy
-              </Link>
-            </Button>
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="#" className="text-sm text-muted-foreground hover:text-primary">
-                Terms of Service
-              </Link>
-            </Button>
+            <Link href="#" className="text-sm text-muted-foreground hover:text-primary">
+              Privacy Policy
+            </Link>
+            <Link href="#" className="text-sm text-muted-foreground hover:text-primary">
+              Terms of Service
+            </Link>
           </div>
         </div>
       </div>

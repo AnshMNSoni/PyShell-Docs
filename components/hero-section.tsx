@@ -67,7 +67,7 @@ export function HeroSection() {
                 </div>
                 <div className="ml-2 text-sm font-medium">PyShell Terminal</div>
               </div>
-              <div className="bg-black p-6 text-green-400 font-mono text-sm">
+              <div className="bg-black p-4 sm:p-6 text-green-400 font-mono text-xs sm:text-sm overflow-x-auto">
                 <div className="mb-2">$ python -m pyshell</div>
                 <div className="mb-2">
                   <span className="text-blue-400">PyShell v1.0.0</span> - The Future of Terminals/CLI
@@ -75,14 +75,17 @@ export function HeroSection() {
                 <div className="mb-2">Welcome back, user! Type 'help' to see available commands.</div>
                 <div className="mb-2">$ help</div>
                 <div className="mb-1">Available commands:</div>
-                <div className="mb-1">- calc: Open calculator</div>
-                <div className="mb-1">- weather: Check weather</div>
-                <div className="mb-1">- schedule: Manage tasks</div>
-                <div className="mb-1">- genpass: Generate password</div>
-                <div className="mb-1">- git: Git dashboard</div>
-                <div className="mb-1">- music: Play songs</div>
-                <div className="mb-1">- voice: Activate voice input</div>
-                <div className="mb-2">- layout: Change terminal layout</div>
+                <div className="hidden sm:block">
+                  <div className="mb-1">- calc: Open calculator</div>
+                  <div className="mb-1">- weather: Check weather</div>
+                  <div className="mb-1">- schedule: Manage tasks</div>
+                  <div className="mb-1">- genpass: Generate password</div>
+                  <div className="mb-1">- git: Git dashboard</div>
+                  <div className="mb-1">- music: Play songs</div>
+                  <div className="mb-1">- voice: Activate voice input</div>
+                  <div className="mb-1">- layout: Change terminal layout</div>
+                </div>
+                <div className="block sm:hidden mb-1">- calc, weather, git, music...</div>
                 <div className="animate-blink">$&nbsp;</div>
               </div>
               <div className="absolute -bottom-6 -left-6 h-24 w-24 rounded-full bg-primary/20 blur-xl"></div>

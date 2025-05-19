@@ -11,7 +11,7 @@ import { Toaster } from "@/components/ui/toaster"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "PyShell - The Future of Terminals/CLI",
+  title: "PyShell | Docs",
   description: "An advanced Python-based terminal with powerful features for developers",
   icons: {
     icon: "/favicon.ico",
@@ -31,7 +31,7 @@ export default function RootLayout({
           <SidebarProvider>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <div className="flex-1 flex">{children}</div>
+              <div className="flex-1">{children}</div>
               <SiteFooter />
             </div>
           </SidebarProvider>

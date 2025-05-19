@@ -31,18 +31,20 @@ export function CTASection() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link href="https://github.com/AnshMNSoni/PyShell" target="_blank" rel="noopener noreferrer">
-                <Github className="mr-2 h-4 w-4" />
-                Star on GitHub
-              </Link>
-            </Button>
-            <Button variant="secondary" size="lg" asChild>
-              <Link href="https://github.com/AnshMNSoni/PyShell/archive/refs/heads/main.zip">
-                <Download className="mr-2 h-4 w-4" />
-                Download
-              </Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <Button variant="outline" size="lg" asChild>
+                <Link href="https://github.com/AnshMNSoni/PyShell" target="_blank" rel="noopener noreferrer">
+                  <Github className="mr-2 h-4 w-4" />
+                  Star on GitHub
+                </Link>
+              </Button>
+              <Button variant="secondary" size="lg" asChild>
+                <Link href="https://github.com/AnshMNSoni/PyShell/archive/refs/heads/main.zip">
+                  <Download className="mr-2 h-4 w-4" />
+                  Download
+                </Link>
+              </Button>
+            </div>
           </div>
         </motion.div>
       </div>

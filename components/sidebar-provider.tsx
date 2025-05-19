@@ -192,7 +192,15 @@ const Sidebar = React.forwardRef<
           className="flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
         >
           <div className="flex justify-end p-2">
-            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => useSidebar().setOpen(false)}>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              onClick={() => {
+                const { setOpen } = useSidebar()
+                setOpen(false)
+              }}
+            >
               <X className="h-4 w-4" />
               <span className="sr-only">Close</span>
             </Button>
@@ -290,7 +298,14 @@ const SidebarMenu = React.forwardRef<HTMLUListElement, React.ComponentProps<"ul"
 SidebarMenu.displayName = "SidebarMenu"
 
 const SidebarMenuItem = React.forwardRef<HTMLLIElement, React.ComponentProps<"li">>(({ className, ...props }, ref) => (
-  <li ref={ref} data-sidebar="menu-item" className={cn("group/menu-item relative", className)} {...props} />
+  <li
+    ref={ref}
+    data-sidebar="menu-item"
+    className={cn("group/menu-item relative cursor-pointer", className)}
+    role="menuitem"
+    tabIndex={0}
+    {...props}
+  />
 ))
 SidebarMenuItem.displayName = "SidebarMenuItem"
 
@@ -334,6 +349,7 @@ const SidebarMenuButton = React.forwardRef<
       data-size={size}
       data-active={isActive}
       className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
+      role="button"
       {...props}
     />
   )
