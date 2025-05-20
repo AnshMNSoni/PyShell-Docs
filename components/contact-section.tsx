@@ -162,12 +162,12 @@ export function ContactSection() {
                   <h3 className="text-lg font-medium">Community Support</h3>
                   <p className="text-sm text-muted-foreground mt-1">Join our community for help and discussions</p>
                   <a
-                    href="https://github.com/AnshMNSoni/PyShell/discussions"
+                    href="https://linkedin.com/company/py-shell"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary hover:underline mt-2 inline-block"
                   >
-                    GitHub Discussions
+                    Community Discussions
                   </a>
                 </div>
               </div>

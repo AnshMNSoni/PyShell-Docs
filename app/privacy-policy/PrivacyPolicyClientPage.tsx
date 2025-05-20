@@ -482,8 +482,8 @@ export default function PrivacyPolicyClientPage() {
             <ul>
               <li>
                 By visiting this page on our website:{" "}
-                <a href="https://v0-pyshell-website-showcase-delta.vercel.app/" className="text-primary">
-                  https://v0-pyshell-website-showcase-delta.vercel.app/
+                <a href="developers.pyshell@gmail.com" className="text-primary">
+                  developers.pyshell@gmail.com
                 </a>
               </li>
             </ul>

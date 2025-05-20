@@ -3,12 +3,13 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { useEffect, useState, useRef } from "react"
 import { useSearchParams } from "next/navigation"
 import type React from "react"
-import { HelpCircle, Search, ChevronRight, ArrowUp } from "lucide-react"
+import { HelpCircle, Search, ChevronRight, ArrowUp, Filter } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 
 interface FAQ {
   id: string
@@ -22,6 +23,7 @@ export default function FAQClientPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [filteredFaqs, setFilteredFaqs] = useState<FAQ[]>([])
   const [showBackToTop, setShowBackToTop] = useState(false)
+  const [activeCategory, setActiveCategory] = useState("all")
   const accordionRef = useRef<HTMLDivElement>(null)
   const searchParams = useSearchParams()
   const faqId = searchParams.get("faq")
@@ -246,54 +248,153 @@ export default function FAQClientPage() {
     }
   }
 
+  const handleCategoryChange = (category: string) => {
+    setActiveCategory(category)
+  }
+
+  const handleFaqClick = (index: number, faqId: string) => {
+    setOpenItem(`item-${index}`)
+    const element = document.getElementById(`faq-${faqId}`)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+  }
+
   return (
-    <div className="space-y-8 px-4 sm:px-6 md:px-0 max-w-full overflow-hidden">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div className="space-y-6 px-4 sm:px-6 md:px-0 max-w-full overflow-hidden">
+      <div className="flex flex-col gap-4">
         <div>
-          <h1 className="scroll-m-20 text-4xl font-bold tracking-tight">Frequently Asked Questions</h1>
-          <p className="text-lg text-muted-foreground mt-2">Find answers to common questions about PyShell</p>
+          <h1 className="scroll-m-20 text-3xl sm:text-4xl font-bold tracking-tight">Frequently Asked Questions</h1>
+          <p className="text-base sm:text-lg text-muted-foreground mt-2">
+            Find answers to common questions about PyShell
+          </p>
         </div>
-        <div className="relative w-full md:w-64">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder="Search FAQs..."
-            className="pl-8 w-full text-sm"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+
+        {/* Search and Filter Row - Mobile Optimized */}
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+          <div className="relative flex-1">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Search FAQs..."
+              className="pl-8 w-full text-sm"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+
+          {/* Mobile Filter Button */}
+          <div className="sm:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" className="w-full flex items-center justify-center gap-2">
+                  <Filter className="h-4 w-4" />
+                  Filter by Category
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="bottom" className="h-[60vh]">
+                <SheetHeader className="text-left">
+                  <SheetTitle>Filter by Category</SheetTitle>
+                  <SheetDescription>Select a category to filter the FAQs</SheetDescription>
+                </SheetHeader>
+                <div className="py-6 space-y-2">
+                  {["all", "general", "technical", "usage"].map((category) => (
+                    <Button
+                      key={category}
+                      variant={activeCategory === category ? "default" : "outline"}
+                      className="w-full justify-start text-left mb-2 h-auto py-3"
+                      onClick={() => {
+                        handleCategoryChange(category)
+                        document
+                          .querySelector('[data-state="open"]')
+                          ?.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))
+                      }}
+                    >
+                      <div className="flex items-center justify-between w-full">
+                        <span className="capitalize">
+                          {category === "all" ? "All Categories" : getCategoryLabel(category)}
+                        </span>
+                        <Badge variant="secondary" className="ml-auto">
+                          {category === "all" ? faqs.length : getCategoryCount(category)}
+                        </Badge>
+                      </div>
+                    </Button>
+                  ))}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+
+          {/* Quick Navigation for Mobile */}
+          <div className="sm:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" className="w-full flex items-center justify-center gap-2">
+                  <HelpCircle className="h-4 w-4" />
+                  Quick Navigation
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="bottom" className="h-[70vh]">
+                <SheetHeader className="text-left">
+                  <SheetTitle>Quick Navigation</SheetTitle>
+                  <SheetDescription>Jump to a specific question</SheetDescription>
+                </SheetHeader>
+                <div className="py-4 overflow-y-auto max-h-[calc(70vh-80px)]">
+                  <ul className="space-y-1">
+                    {faqs
+                      .filter((faq) => activeCategory === "all" || faq.category === activeCategory)
+                      .map((faq, index) => (
+                        <li key={index}>
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-start text-sm h-auto py-3 px-2 text-left"
+                            onClick={() => {
+                              handleFaqClick(index, faq.id)
+                              document
+                                .querySelector('[data-state="open"]')
+                                ?.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))
+                            }}
+                          >
+                            <div className="flex items-start gap-2">
+                              <ChevronRight className="h-4 w-4 mt-0.5 shrink-0" />
+                              <span>{faq.question}</span>
+                            </div>
+                          </Button>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
-        {/* Quick Navigation */}
-        <div className="md:col-span-1">
-          <div className="md:sticky md:top-20 space-y-4 mb-6 md:mb-0">
-            <div className="rounded-lg border p-3 md:p-4">
-              <h3 className="font-medium mb-2 md:mb-3 flex items-center text-sm md:text-base">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        {/* Desktop Quick Navigation Sidebar */}
+        <div className="hidden md:block md:col-span-1">
+          <div className="md:sticky md:top-20 space-y-4">
+            <div className="rounded-lg border p-4">
+              <h3 className="font-medium mb-3 flex items-center">
                 <HelpCircle className="h-4 w-4 mr-2" />
                 Quick Navigation
               </h3>
-              <div className="max-h-[200px] md:max-h-[400px] overflow-y-auto pr-1">
-                <ul className="space-y-1 md:space-y-2">
-                  {faqs.map((faq, index) => (
-                    <li key={index}>
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start text-sm h-auto py-1.5 px-2"
-                        onClick={() => {
-                          setOpenItem(`item-${index}`)
-                          const element = document.getElementById(`faq-${faq.id}`)
-                          if (element) {
-                            element.scrollIntoView({ behavior: "smooth", block: "start" })
-                          }
-                        }}
-                      >
-                        <ChevronRight className="h-3 w-3 mr-1 shrink-0" />
-                        <span className="truncate text-left">{faq.question.split("?")[0]}?</span>
-                      </Button>
-                    </li>
-                  ))}
+              <div className="max-h-[400px] overflow-y-auto pr-1">
+                <ul className="space-y-1">
+                  {faqs
+                    .filter((faq) => activeCategory === "all" || faq.category === activeCategory)
+                    .map((faq, index) => (
+                      <li key={index}>
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start text-sm h-auto py-1.5 px-2"
+                          onClick={() => handleFaqClick(index, faq.id)}
+                        >
+                          <ChevronRight className="h-3 w-3 mr-1 shrink-0" />
+                          <span className="truncate text-left">{faq.question.split("?")[0]}?</span>
+                        </Button>
+                      </li>
+                    ))}
                 </ul>
               </div>
             </div>
@@ -302,96 +403,78 @@ export default function FAQClientPage() {
 
         {/* FAQ Content */}
         <div className="md:col-span-3">
-          <Tabs defaultValue="all" className="w-full">
-            <TabsList className="mb-4 w-full overflow-x-auto flex whitespace-nowrap">
-              <TabsTrigger value="all" className="flex items-center gap-2">
-                All
-                <Badge variant="secondary" className="ml-1">
-                  {faqs.length}
-                </Badge>
-              </TabsTrigger>
-              <TabsTrigger value="general" className="flex items-center gap-2">
-                General
-                <Badge variant="secondary" className="ml-1">
-                  {getCategoryCount("general")}
-                </Badge>
-              </TabsTrigger>
-              <TabsTrigger value="technical" className="flex items-center gap-2">
-                Technical
-                <Badge variant="secondary" className="ml-1">
-                  {getCategoryCount("technical")}
-                </Badge>
-              </TabsTrigger>
-              <TabsTrigger value="usage" className="flex items-center gap-2">
-                Usage
-                <Badge variant="secondary" className="ml-1">
-                  {getCategoryCount("usage")}
-                </Badge>
-              </TabsTrigger>
-            </TabsList>
+          {/* Desktop Category Tabs */}
+          <div className="hidden sm:block">
+            <Tabs defaultValue="all" value={activeCategory} onValueChange={handleCategoryChange} className="w-full">
+              <TabsList className="mb-4 w-full overflow-x-auto flex whitespace-nowrap">
+                <TabsTrigger value="all" className="flex items-center gap-2">
+                  All
+                  <Badge variant="secondary" className="ml-1">
+                    {faqs.length}
+                  </Badge>
+                </TabsTrigger>
+                <TabsTrigger value="general" className="flex items-center gap-2">
+                  General
+                  <Badge variant="secondary" className="ml-1">
+                    {getCategoryCount("general")}
+                  </Badge>
+                </TabsTrigger>
+                <TabsTrigger value="technical" className="flex items-center gap-2">
+                  Technical
+                  <Badge variant="secondary" className="ml-1">
+                    {getCategoryCount("technical")}
+                  </Badge>
+                </TabsTrigger>
+                <TabsTrigger value="usage" className="flex items-center gap-2">
+                  Usage
+                  <Badge variant="secondary" className="ml-1">
+                    {getCategoryCount("usage")}
+                  </Badge>
+                </TabsTrigger>
+              </TabsList>
 
-            {["all", "general", "technical", "usage"].map((category) => (
-              <TabsContent key={category} value={category} className="mt-0">
-                <Accordion
-                  type="single"
-                  collapsible
-                  className="w-full space-y-4"
-                  value={openItem}
-                  onValueChange={setOpenItem}
-                  ref={accordionRef}
-                >
-                  {filteredFaqs
-                    .filter((faq) => category === "all" || faq.category === category)
-                    .map((faq, index) => (
-                      <AccordionItem
-                        key={index}
-                        value={`item-${index}`}
-                        id={`faq-${faq.id}`}
-                        className="border rounded-lg px-6 shadow-sm"
-                      >
-                        <AccordionTrigger className="text-left font-medium py-3 md:py-4 hover:no-underline">
-                          <div className="flex items-start gap-2 md:gap-3">
-                            <Badge
-                              variant="outline"
-                              className={cn(
-                                "mt-0.5 shrink-0 text-xs",
-                                faq.category === "general" &&
-                                  "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
-                                faq.category === "technical" &&
-                                  "bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300",
-                                faq.category === "usage" &&
-                                  "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300",
-                              )}
-                            >
-                              {getCategoryLabel(faq.category)}
-                            </Badge>
-                            <span className="text-sm md:text-base">{faq.question}</span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground pt-2 pb-4">
-                          <div className="border-l-2 border-primary/20 pl-4">{faq.answer}</div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                </Accordion>
+              {["all", "general", "technical", "usage"].map((category) => (
+                <TabsContent key={category} value={category} className="mt-0">
+                  <FaqList
+                    faqs={filteredFaqs}
+                    category={category}
+                    openItem={openItem}
+                    setOpenItem={setOpenItem}
+                    accordionRef={accordionRef}
+                    searchQuery={searchQuery}
+                    setSearchQuery={setSearchQuery}
+                    getCategoryLabel={getCategoryLabel}
+                  />
+                </TabsContent>
+              ))}
+            </Tabs>
+          </div>
 
-                {filteredFaqs.filter((faq) => category === "all" || faq.category === category).length === 0 && (
-                  <div className="text-center py-12 border rounded-lg">
-                    <HelpCircle className="h-12 w-12 mx-auto text-muted-foreground/50" />
-                    <h3 className="mt-4 text-lg font-medium">No FAQs Found</h3>
-                    <p className="text-muted-foreground mt-2">
-                      {searchQuery ? "Try adjusting your search query" : "There are no FAQs in this category yet"}
-                    </p>
-                    {searchQuery && (
-                      <Button variant="outline" className="mt-4" onClick={() => setSearchQuery("")}>
-                        Clear Search
-                      </Button>
-                    )}
-                  </div>
-                )}
-              </TabsContent>
-            ))}
-          </Tabs>
+          {/* Mobile Category Display */}
+          <div className="sm:hidden">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-lg font-medium">
+                {activeCategory === "all" ? "All Categories" : getCategoryLabel(activeCategory)}
+              </h2>
+              <Badge variant="outline">
+                {activeCategory === "all"
+                  ? filteredFaqs.length
+                  : filteredFaqs.filter((faq) => faq.category === activeCategory).length}{" "}
+                results
+              </Badge>
+            </div>
+
+            <FaqList
+              faqs={filteredFaqs}
+              category={activeCategory}
+              openItem={openItem}
+              setOpenItem={setOpenItem}
+              accordionRef={accordionRef}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              getCategoryLabel={getCategoryLabel}
+            />
+          </div>
         </div>
       </div>
 
@@ -407,5 +490,86 @@ export default function FAQClientPage() {
         </Button>
       )}
     </div>
+  )
+}
+
+// Extracted FAQ list component for reuse
+function FaqList({
+  faqs,
+  category,
+  openItem,
+  setOpenItem,
+  accordionRef,
+  searchQuery,
+  setSearchQuery,
+  getCategoryLabel,
+}: {
+  faqs: FAQ[]
+  category: string
+  openItem: string | undefined
+  setOpenItem: (value: string | undefined) => void
+  accordionRef: React.RefObject<HTMLDivElement>
+  searchQuery: string
+  setSearchQuery: (value: string) => void
+  getCategoryLabel: (category: string) => string
+}) {
+  const filteredList = faqs.filter((faq) => category === "all" || faq.category === category)
+
+  return (
+    <>
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full space-y-4"
+        value={openItem}
+        onValueChange={setOpenItem}
+        ref={accordionRef}
+      >
+        {filteredList.map((faq, index) => (
+          <AccordionItem
+            key={index}
+            value={`item-${index}`}
+            id={`faq-${faq.id}`}
+            className="border rounded-lg px-4 sm:px-6 shadow-sm"
+          >
+            <AccordionTrigger className="text-left font-medium py-3 md:py-4 hover:no-underline">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                <Badge
+                  variant="outline"
+                  className={cn(
+                    "text-xs w-fit",
+                    faq.category === "general" && "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
+                    faq.category === "technical" &&
+                      "bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300",
+                    faq.category === "usage" && "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300",
+                  )}
+                >
+                  {getCategoryLabel(faq.category)}
+                </Badge>
+                <span className="text-sm sm:text-base">{faq.question}</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground pt-2 pb-4 text-sm sm:text-base">
+              <div className="border-l-2 border-primary/20 pl-4">{faq.answer}</div>
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+
+      {filteredList.length === 0 && (
+        <div className="text-center py-8 sm:py-12 border rounded-lg">
+          <HelpCircle className="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-muted-foreground/50" />
+          <h3 className="mt-4 text-lg font-medium">No FAQs Found</h3>
+          <p className="text-muted-foreground mt-2">
+            {searchQuery ? "Try adjusting your search query" : "There are no FAQs in this category yet"}
+          </p>
+          {searchQuery && (
+            <Button variant="outline" className="mt-4" onClick={() => setSearchQuery("")}>
+              Clear Search
+            </Button>
+          )}
+        </div>
+      )}
+    </>
   )
 }

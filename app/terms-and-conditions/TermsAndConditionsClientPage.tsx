@@ -334,9 +334,9 @@ export default function TermsAndConditionsClientPage() {
             <p>If you have any questions about these Terms and Conditions, You can contact us:</p>
             <ul>
               <li>
-                By visiting this page on our website:{" "}
-                <a href="https://v0-pyshell-website-showcase-delta.vercel.app/" className="text-primary">
-                  https://v0-pyshell-website-showcase-delta.vercel.app/
+                Email:{" "}
+                <a href="developers.pyshell@gmail.com" className="text-primary">
+                  developers.pyshell@gmail.com
                 </a>
               </li>
             </ul>
