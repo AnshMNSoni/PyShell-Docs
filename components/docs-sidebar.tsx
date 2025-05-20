@@ -68,24 +68,24 @@ export function DocsSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={isActive("/docs")}>
-                  <Link href="/docs">
-                    <Home className="h-4 w-4" />
+                  <Link href="/docs" className="flex items-center gap-2">
+                    <Home className="h-4 w-4 shrink-0" />
                     <span>Introduction</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={isActive("/docs/installation")}>
-                  <Link href="/docs/installation">
-                    <Terminal className="h-4 w-4" />
+                  <Link href="/docs/installation" className="flex items-center gap-2">
+                    <Terminal className="h-4 w-4 shrink-0" />
                     <span>Installation</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={isActive("/docs/features")}>
-                  <Link href="/docs/features">
-                    <Box className="h-4 w-4" />
+                  <Link href="/docs/features" className="flex items-center gap-2">
+                    <Box className="h-4 w-4 shrink-0" />
                     <span>Features</span>
                   </Link>
                 </SidebarMenuButton>
@@ -106,44 +106,65 @@ export function DocsSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton onClick={() => handleFeatureClick("calculator")}>
-                      <Calculator className="h-4 w-4" />
+                    <SidebarMenuButton
+                      onClick={() => handleFeatureClick("calculator")}
+                      className="flex items-center gap-2"
+                    >
+                      <Calculator className="h-4 w-4 shrink-0" />
                       <span>Calculator</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton onClick={() => handleFeatureClick("weather-tracking")}>
-                      <Cloud className="h-4 w-4" />
+                    <SidebarMenuButton
+                      onClick={() => handleFeatureClick("weather-tracking")}
+                      className="flex items-center gap-2"
+                    >
+                      <Cloud className="h-4 w-4 shrink-0" />
                       <span>Weather</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton onClick={() => handleFeatureClick("task-scheduling")}>
-                      <Calendar className="h-4 w-4" />
+                    <SidebarMenuButton
+                      onClick={() => handleFeatureClick("task-scheduling")}
+                      className="flex items-center gap-2"
+                    >
+                      <Calendar className="h-4 w-4 shrink-0" />
                       <span>Task Scheduling</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton onClick={() => handleFeatureClick("password-generator")}>
-                      <Key className="h-4 w-4" />
+                    <SidebarMenuButton
+                      onClick={() => handleFeatureClick("password-generator")}
+                      className="flex items-center gap-2"
+                    >
+                      <Key className="h-4 w-4 shrink-0" />
                       <span>Password Generator</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton onClick={() => handleFeatureClick("music-player")}>
-                      <Music className="h-4 w-4" />
+                    <SidebarMenuButton
+                      onClick={() => handleFeatureClick("music-player")}
+                      className="flex items-center gap-2"
+                    >
+                      <Music className="h-4 w-4 shrink-0" />
                       <span>Music Player</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton onClick={() => handleFeatureClick("voice-input")}>
-                      <Mic className="h-4 w-4" />
+                    <SidebarMenuButton
+                      onClick={() => handleFeatureClick("voice-input")}
+                      className="flex items-center gap-2"
+                    >
+                      <Mic className="h-4 w-4 shrink-0" />
                       <span>Voice Input</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton onClick={() => handleFeatureClick("git-integration")}>
-                      <GitBranch className="h-4 w-4" />
+                    <SidebarMenuButton
+                      onClick={() => handleFeatureClick("git-integration")}
+                      className="flex items-center gap-2"
+                    >
+                      <GitBranch className="h-4 w-4 shrink-0" />
                       <span>Git Integration</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -165,22 +186,22 @@ export function DocsSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton disabled className="opacity-70">
-                      <Command className="h-4 w-4" />
+                    <SidebarMenuButton disabled className="opacity-70 flex items-center gap-2">
+                      <Command className="h-4 w-4 shrink-0" />
                       <span>Commands</span>
                       <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton disabled className="opacity-70">
-                      <Settings className="h-4 w-4" />
+                    <SidebarMenuButton disabled className="opacity-70 flex items-center gap-2">
+                      <Settings className="h-4 w-4 shrink-0" />
                       <span>Configuration</span>
                       <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton disabled className="opacity-70">
-                      <Code className="h-4 w-4" />
+                    <SidebarMenuButton disabled className="opacity-70 flex items-center gap-2">
+                      <Code className="h-4 w-4 shrink-0" />
                       <span>API Reference</span>
                       <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
@@ -203,24 +224,25 @@ export function DocsSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton disabled className="opacity-70">
-                      <FileCode className="h-4 w-4" />
+                    <SidebarMenuButton disabled className="opacity-70 flex items-center gap-2">
+                      <FileCode className="h-4 w-4 shrink-0" />
                       <span>Examples</span>
                       <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton disabled className="opacity-70">
-                      <BookOpen className="h-4 w-4" />
+                    <SidebarMenuButton disabled className="opacity-70 flex items-center gap-2">
+                      <BookOpen className="h-4 w-4 shrink-0" />
                       <span>Tutorials</span>
                       <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton disabled className="opacity-70">
-                      <HelpCircle className="h-4 w-4" />
-                      <span>FAQ</span>
-                      <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
+                    <SidebarMenuButton asChild isActive={isActive("/docs/faq")}>
+                      <Link href="/docs/faq" className="flex items-center gap-2">
+                        <HelpCircle className="h-4 w-4 shrink-0" />
+                        <span>FAQ</span>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>

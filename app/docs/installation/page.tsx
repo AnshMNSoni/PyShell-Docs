@@ -5,6 +5,7 @@ import { Info, CheckCircle2 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Steps, StepItem } from "@/components/steps"
 import Link from "next/link"
+import { FAQLink } from "@/components/faq-link"
 
 export const metadata: Metadata = {
   title: "Installation | PyShell Documentation",
@@ -23,7 +24,8 @@ export default function InstallationPage() {
         <Info className="h-5 w-5" />
         <AlertTitle className="text-base">Prerequisites</AlertTitle>
         <AlertDescription className="text-sm">
-          PyShell requires Python 3.8 or higher and pip package manager.
+          PyShell requires Python 3.8 or higher and pip package manager.{" "}
+          <FAQLink faqId="why-python">Why Python?</FAQLink>
         </AlertDescription>
       </Alert>
 
@@ -79,6 +81,9 @@ export default function InstallationPage() {
                 <span>Other Linux distributions</span>
               </li>
             </ul>
+            <div className="mt-4 text-sm text-muted-foreground">
+              <FAQLink faqId="cross-platform">Learn more about cross-platform support</FAQLink>
+            </div>
           </CardContent>
         </Card>
 
@@ -331,9 +336,9 @@ export default function InstallationPage() {
               GitHub issues
             </Link>{" "}
             or{" "}
-            <Link href="#" className="text-primary hover:underline">
+            <FAQLink faqId="contribute" showIcon={false}>
               contact support
-            </Link>
+            </FAQLink>
             .
           </p>
         </div>

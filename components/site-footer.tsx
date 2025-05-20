@@ -67,7 +67,7 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-primary">
+                <Link href="/docs/faq" className="text-sm text-muted-foreground hover:text-primary">
                   FAQ
                 </Link>
               </li>
@@ -112,10 +112,10 @@ export function SiteFooter() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 border-t border-border pt-8 mt-8">
           <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} PyShell. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <Link href="#" className="text-sm text-muted-foreground hover:text-primary">
+            <Link href="/privacy-policy" className="text-sm text-muted-foreground hover:text-primary">
               Privacy Policy
             </Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-primary">
+            <Link href="/terms-and-conditions" className="text-sm text-muted-foreground hover:text-primary">
               Terms of Service
             </Link>
           </div>

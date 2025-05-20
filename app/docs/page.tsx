@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Terminal, ArrowRight, Github } from "lucide-react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { FAQLink } from "@/components/faq-link"
 
 export const metadata: Metadata = {
   title: "Documentation | PyShell",
@@ -35,7 +36,11 @@ export default function DocsPage() {
             </li>
             <li className="text-muted-foreground">Commands (Coming Soon)</li>
             <li className="text-muted-foreground">API Reference (Coming Soon)</li>
-            <li className="text-muted-foreground">Tutorials (Coming Soon)</li>
+            <li>
+              <Link href="/docs/faq" className="text-primary hover:underline">
+                Frequently Asked Questions
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
@@ -44,13 +49,16 @@ export default function DocsPage() {
         <p className="leading-7">
           PyShell is an advanced Python-based terminal that combines the power of traditional command-line interfaces
           with modern features designed for developer productivity. It provides a clean, intuitive interface with
-          enhanced capabilities beyond standard terminals.
+          enhanced capabilities beyond standard terminals.{" "}
+          <FAQLink faqId="pyshell-vs-standard-terminals">What makes PyShell different?</FAQLink>
         </p>
         <div className="flex items-center p-6 border rounded-lg bg-muted/50">
           <Terminal className="h-12 w-12 text-primary mr-6" />
           <div>
             <h3 className="font-medium text-xl">PyShell: The Future of Terminals/CLI</h3>
-            <p className="text-muted-foreground">A modern terminal experience built with Python</p>
+            <p className="text-muted-foreground">
+              A modern terminal experience built with Python <FAQLink faqId="why-python">Why Python?</FAQLink>
+            </p>
           </div>
         </div>
 
@@ -63,7 +71,7 @@ export default function DocsPage() {
             <CardContent>
               <p>
                 PyShell provides powerful tools for developers including Git integration, process management, and voice
-                commands.
+                commands. <FAQLink faqId="target-users">Who is PyShell for?</FAQLink>
               </p>
             </CardContent>
             <CardFooter>
@@ -84,7 +92,7 @@ export default function DocsPage() {
             <CardContent>
               <p>
                 Task scheduling, weather tracking, and advanced calculator functions make PyShell perfect for power
-                users.
+                users. <FAQLink faqId="entertainment-features">Is it just for work?</FAQLink>
               </p>
             </CardContent>
             <CardFooter>
@@ -99,7 +107,10 @@ export default function DocsPage() {
         </div>
 
         <h2 className="scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight mt-8">Quick Start</h2>
-        <p className="leading-7">Get PyShell up and running on your system in minutes.</p>
+        <p className="leading-7">
+          Get PyShell up and running on your system in minutes.{" "}
+          <FAQLink faqId="cross-platform">Works on all platforms!</FAQLink>
+        </p>
         <div className="space-y-4">
           <div className="rounded-md bg-black/90 p-6 overflow-hidden">
             <div className="flex items-center border-b border-white/10 pb-2 mb-4">
