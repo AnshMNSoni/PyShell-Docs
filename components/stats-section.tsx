@@ -28,9 +28,9 @@ export function StatsSection() {
   ]
 
   return (
-    <section className="w-full py-12 md:py-16 bg-muted/30">
+    <section className="w-full py-8 sm:py-12 md:py-16 bg-muted/30">
       <div className="container px-4 md:px-6">
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
@@ -40,12 +40,12 @@ export function StatsSection() {
               viewport={{ once: true }}
               className="flex flex-col items-center justify-center space-y-2 text-center"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                <stat.icon className="h-6 w-6 text-primary" />
+              <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-primary/10">
+                <stat.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-3xl font-bold">{stat.value}</h3>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold">{stat.value}</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
               </div>
             </motion.div>
           ))}

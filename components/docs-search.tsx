@@ -88,17 +88,17 @@ export function DocsSearch() {
   return (
     <>
       <form onSubmit={handleSearch} className="relative w-full">
-        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+        <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           type="search"
-          placeholder="Search documentation... (⌘K)"
-          className="w-full bg-background pl-8 pr-12"
+          placeholder="Search docs... (⌘K)"
+          className="w-full bg-background pl-8 pr-10 text-sm h-9"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onClick={() => setOpen(true)}
         />
-        <Button type="submit" variant="ghost" size="sm" className="absolute right-0 top-0 h-9 px-3">
-          Search
+        <Button type="submit" variant="ghost" size="sm" className="absolute right-0 top-0 h-9 px-2">
+          <span className="sr-only">Search</span>
         </Button>
       </form>
 

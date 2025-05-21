@@ -200,10 +200,11 @@ export function DocsSidebar() {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton disabled className="opacity-70 flex items-center gap-2">
-                      <Code className="h-4 w-4 shrink-0" />
-                      <span>API Reference</span>
-                      <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
+                    <SidebarMenuButton asChild isActive={isActive("/docs/api-reference")}>
+                      <Link href="/docs/api-reference" className="flex items-center gap-2">
+                        <Code className="h-4 w-4 shrink-0" />
+                        <span>API Reference</span>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>

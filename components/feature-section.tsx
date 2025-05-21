@@ -87,36 +87,41 @@ export function FeatureSection() {
   }, [inView, features.length])
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-muted/30">
+    <section className="w-full py-10 sm:py-12 md:py-24 lg:py-32 bg-muted/30">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
             <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
               Powerful Features
             </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Everything You Need in One Terminal</h2>
-            <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter">
+              Everything You Need in One Terminal
+            </h2>
+            <p className="max-w-[900px] text-muted-foreground text-sm sm:text-base md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               PyShell combines the power of traditional terminals with modern features to enhance your development
               workflow.
             </p>
           </div>
         </div>
-        <div ref={ref} className="mx-auto grid max-w-5xl grid-cols-1 gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
+        <div
+          ref={ref}
+          className="mx-auto grid max-w-5xl grid-cols-1 gap-4 sm:gap-6 py-8 sm:py-12 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {features.map((feature, index) => (
             <div
               key={index}
               className={cn(
-                "group flex flex-col items-center space-y-4 rounded-lg border p-6 transition-all hover:bg-muted",
+                "group flex flex-col items-center space-y-3 sm:space-y-4 rounded-lg border p-4 sm:p-6 transition-all hover:bg-muted",
                 "transform transition-all duration-500 ease-in-out",
                 visibleFeatures.includes(index) ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0",
                 index === 0 && "md:col-span-2 lg:col-span-1",
               )}
             >
-              <div className="rounded-full border-2 border-primary/20 bg-primary/10 p-3 group-hover:bg-primary/20 transition-colors">
-                <feature.icon className="h-8 w-8 text-primary" />
+              <div className="rounded-full border-2 border-primary/20 bg-primary/10 p-2 sm:p-3 group-hover:bg-primary/20 transition-colors">
+                <feature.icon className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
               </div>
-              <h3 className="text-center text-xl font-medium">{feature.title}</h3>
-              <p className="text-center text-muted-foreground">{feature.description}</p>
+              <h3 className="text-center text-lg sm:text-xl font-medium">{feature.title}</h3>
+              <p className="text-center text-sm sm:text-base text-muted-foreground">{feature.description}</p>
             </div>
           ))}
         </div>

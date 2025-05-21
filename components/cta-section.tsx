@@ -7,7 +7,7 @@ import { motion } from "framer-motion"
 
 export function CTASection() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-primary/5">
+    <section className="w-full py-10 sm:py-12 md:py-24 lg:py-32 bg-primary/5">
       <div className="container px-4 md:px-6">
         <motion.div
           className="flex flex-col items-center justify-center space-y-4 text-center"
@@ -17,15 +17,15 @@ export function CTASection() {
           viewport={{ once: true }}
         >
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter md:text-4xl/tight">
               Ready to Transform Your Terminal Experience?
             </h2>
-            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+            <p className="mx-auto max-w-[700px] text-sm sm:text-base text-muted-foreground md:text-xl">
               Get started with PyShell today and experience the future of command-line interfaces.
             </p>
           </div>
           <div className="flex flex-col gap-2 min-[400px]:flex-row">
-            <Button asChild size="lg" className="px-8">
+            <Button asChild size="lg" className="px-6 sm:px-8">
               <Link href="/docs">
                 Get Started
                 <ArrowRight className="ml-2 h-4 w-4" />

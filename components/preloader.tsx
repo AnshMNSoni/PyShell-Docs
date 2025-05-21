@@ -99,9 +99,9 @@ export function Preloader({ duration = 3500, onLoadingComplete }: PreloaderProps
           <div ref={particlesRef} className="absolute inset-0 overflow-hidden opacity-70" />
 
           {/* Main content */}
-          <div className="relative z-10 flex flex-col items-center">
+          <div className="relative z-10 flex flex-col items-center px-4">
             {/* Brand name with letter-by-letter reveal */}
-            <div className="relative mb-8 flex items-center justify-center h-20">
+            <div className="relative mb-6 sm:mb-8 flex items-center justify-center h-16 sm:h-20">
               {brandName.split("").map((letter, index) => (
                 <motion.div
                   key={index}
@@ -110,9 +110,11 @@ export function Preloader({ duration = 3500, onLoadingComplete }: PreloaderProps
                   transition={{ duration: 0.3 }}
                   className="relative"
                 >
-                  <span className="text-5xl md:text-6xl font-bold text-primary relative z-10">{letter}</span>
+                  <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-primary relative z-10">
+                    {letter}
+                  </span>
                   {/* Glow effect */}
-                  <span className="absolute inset-0 blur-md text-5xl md:text-6xl font-bold text-primary z-0">
+                  <span className="absolute inset-0 blur-md text-4xl sm:text-5xl md:text-6xl font-bold text-primary z-0">
                     {letter}
                   </span>
                 </motion.div>
@@ -122,13 +124,16 @@ export function Preloader({ duration = 3500, onLoadingComplete }: PreloaderProps
               <motion.div
                 animate={{
                   opacity: [1, 0, 1],
-                  height: visibleLetters >= brandName.length ? "2rem" : "2.5rem",
+                  height: visibleLetters >= brandName.length ? "1.5rem" : "2rem",
                 }}
                 transition={{
                   opacity: { repeat: Number.POSITIVE_INFINITY, duration: 0.8 },
                   height: { duration: 0.2 },
                 }}
-                className={cn("w-[3px] bg-primary ml-1", visibleLetters >= brandName.length ? "animate-blink" : "")}
+                className={cn(
+                  "w-[2px] sm:w-[3px] bg-primary ml-1",
+                  visibleLetters >= brandName.length ? "animate-blink" : "",
+                )}
               />
             </div>
 
@@ -137,13 +142,13 @@ export function Preloader({ duration = 3500, onLoadingComplete }: PreloaderProps
               initial={{ opacity: 0 }}
               animate={visibleLetters >= brandName.length ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-primary/70 text-sm md:text-base mb-8 tracking-wider"
+              className="text-primary/70 text-xs sm:text-sm md:text-base mb-6 sm:mb-8 tracking-wider"
             >
               THE FUTURE OF TERMINALS/CLI
             </motion.div>
 
             {/* Progress bar */}
-            <div className="w-48 md:w-64 h-1 bg-gray-800 rounded-full overflow-hidden">
+            <div className="w-36 sm:w-48 md:w-64 h-1 bg-gray-800 rounded-full overflow-hidden">
               <motion.div
                 className="h-full bg-primary"
                 style={{ width: `${progress}%` }}
@@ -169,7 +174,7 @@ export function Preloader({ duration = 3500, onLoadingComplete }: PreloaderProps
             </motion.div>
 
             {/* Hexagon grid background effect */}
-            <div className="absolute bottom-0 left-0 right-0 h-32 opacity-20 overflow-hidden">
+            <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 opacity-20 overflow-hidden">
               <div className="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NiIgaGVpZ2h0PSI0OSI+PHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMzRkMzk5IiBzdHJva2Utd2lkdGg9IjEuNSIgZD0iTTAgNDIuNUw3LjE1IDI4LjUgMCAxNC41IDE0LjMgMGwyOC42IDE0LjUgMjguNTYtMTQuNUw4NiAwIDc4Ljg1IDE0LjUgODYgMjguNSA3MS43IDQzIDQzLjEgMjguNSAxNC41NCA0M3oiIG9wYWNpdHk9Ii4zIi8+PC9zdmc+')] bg-repeat" />
             </div>
           </div>

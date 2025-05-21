@@ -26,16 +26,16 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-14 sm:h-16 items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-2">
           {isDocsPage && <SidebarTrigger className="md:hidden" />}
           <Link href="/" className="flex items-center gap-2">
-            <Terminal className="h-6 w-6 text-primary" />
-            <span className="font-bold text-xl hidden sm:inline-block">PyShell</span>
+            <Terminal className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+            <span className="font-bold text-lg sm:text-xl hidden sm:inline-block">PyShell</span>
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-4 lg:gap-6">
           {navItems.map((item, index) => (
             <Link
               key={index}
@@ -49,19 +49,19 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           {isDocsPage && !isMobile && (
-            <div className="w-[200px] hidden lg:block">
+            <div className="w-[180px] lg:w-[200px] hidden lg:block">
               <DocsSearch />
             </div>
           )}
-          <Button variant="outline" size="icon" asChild>
+          <Button variant="outline" size="icon" className="hidden sm:flex" asChild>
             <Link href="https://github.com/AnshMNSoni/PyShell" target="_blank" rel="noopener noreferrer">
               <Github className="h-4 w-4" />
               <span className="sr-only">GitHub</span>
             </Link>
           </Button>
-          <Button variant="outline" size="icon" asChild>
+          <Button variant="outline" size="icon" className="hidden sm:flex" asChild>
             <Link href="https://linkedin.com/company/py-shell" target="_blank" rel="noopener noreferrer">
               <Linkedin className="h-4 w-4" />
               <span className="sr-only">LinkedIn</span>
@@ -84,6 +84,11 @@ export function SiteHeader() {
               <DropdownMenuItem asChild>
                 <Link href="https://github.com/AnshMNSoni/PyShell" target="_blank" rel="noopener noreferrer">
                   GitHub
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="https://linkedin.com/company/py-shell" target="_blank" rel="noopener noreferrer">
+                  LinkedIn
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
