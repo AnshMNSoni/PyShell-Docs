@@ -234,7 +234,7 @@ export function DocsSidebar() {
                   <SidebarMenuItem>
                     <SidebarMenuButton disabled className="opacity-70 flex items-center gap-2">
                       <BookOpen className="h-4 w-4 shrink-0" />
-                      <span>Tutorials</span>
+                      <span>Best Practices</span>
                       <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

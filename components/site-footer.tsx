@@ -41,6 +41,11 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link href="/about" className="text-xs sm:text-sm text-muted-foreground hover:text-primary">
+                  About Us
+                </Link>
+              </li>
+              <li>
                 <Link href="/docs/installation" className="text-xs sm:text-sm text-muted-foreground hover:text-primary">
                   Installation
                 </Link>
@@ -67,11 +72,6 @@ export function SiteFooter() {
               <li>
                 <Link href="#" className="text-xs sm:text-sm text-muted-foreground hover:text-primary">
                   Examples
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-xs sm:text-sm text-muted-foreground hover:text-primary">
-                  Tutorials
                 </Link>
               </li>
               <li>
