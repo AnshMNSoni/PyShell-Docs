@@ -1,5 +1,5 @@
 "use client"
-import { Github, Linkedin, Mail, Code, Palette, Terminal, Globe } from "lucide-react"
+import { Github, Linkedin, Mail, Code, Palette, Terminal, Globe, Lightbulb } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -8,30 +8,30 @@ export default function AboutPage() {
   const teamMembers = [
     {
       name: "Ansh Soni",
-      role: "Developer of PyShell Terminal, Design UI of PyShell Website",
-      description: "Strong knowledge of Python and Web developer",
-      image: "/placeholder.svg?height=300&width=300",
-      github: "https://github.com/AnshMNSoni",
-      linkedin: "https://linkedin.com/in/ansh-soni",
-      email: "ansh@pyshell.dev",
+      role: "Founder of PyShell",
+      description: "FullStack Python Developer",
+      image: "/as.jpg?height=300&width=300",
+      github: "https://github.com/AnshMNSoni/",
+      linkedin: "https://linkedin.com/in/anshmnsoni/",
+      email: "ansh.mn.soni7505@gmail.com",
       specialties: [
-        { icon: Terminal, label: "Terminal Development" },
-        { icon: Code, label: "Python Expert" },
-        { icon: Palette, label: "UI Design" },
+        { icon: Lightbulb, label: "Turning challenges into opportunities." },
+        { icon: Code, label: "Software Developer" },
+        { icon: Palette, label: "UI/UX Designer" },
       ],
     },
     {
       name: "Priyank Patel",
-      role: "Developer of PyShell Website, Enhance and Design Website",
+      role: "Developer of PyShell Website",
       description: "Web and GUI developer",
-      image: "/placeholder.svg?height=300&width=300",
-      github: "https://github.com/Patel-Priyank-1602",
+      image: "/pp.jpg?height=300&width=300",
+      github: "https://github.com/Patel-Priyank-1602/",
       linkedin: "https://www.linkedin.com/in/patel-priyank-945131288/",
       email: "patelpriyank2526@gmail.com",
       specialties: [
-        { icon: Globe, label: "Web Development" },
-        { icon: Palette, label: "Enhance UI" },
-        { icon: Code, label: "GUI Development" },
+        { icon: Globe, label: "Applying skills to address real-world needs." },
+        { icon: Palette, label: "Web Development" },
+        { icon: Code, label: "UI/UX Designer" },
       ],
     },
   ]
