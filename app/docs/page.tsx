@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Terminal, ArrowRight, Github } from "lucide-react"
+import { Terminal, ArrowRight, Github, GraduationCap } from "lucide-react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { FAQLink } from "@/components/faq-link"
 
@@ -25,6 +25,11 @@ export default function DocsPage() {
               </Link>
             </li>
             <li>
+              <Link href="/docs/tutorial" className="text-primary hover:underline">
+                Tutorial - Step-by-Step Guide
+              </Link>
+            </li>
+            <li>
               <Link href="/docs/installation" className="text-primary hover:underline">
                 Installation Guide
               </Link>
@@ -35,7 +40,11 @@ export default function DocsPage() {
               </Link>
             </li>
             <li className="text-muted-foreground">Commands (Coming Soon)</li>
-            <li className="text-muted-foreground">API Reference (Coming Soon)</li>
+            <li>
+              <Link href="/docs/api-reference" className="text-primary hover:underline">
+                API Reference
+              </Link>
+            </li>
             <li>
               <Link href="/docs/faq" className="text-primary hover:underline">
                 Frequently Asked Questions
@@ -63,6 +72,30 @@ export default function DocsPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <GraduationCap className="h-5 w-5" />
+                Start Learning
+              </CardTitle>
+              <CardDescription>New to PyShell? Follow our comprehensive tutorial</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Our step-by-step tutorial will guide you through everything from installation to advanced features.
+                Perfect for beginners and experienced developers alike.
+              </p>
+            </CardContent>
+            <CardFooter>
+              <Button asChild>
+                <Link href="/docs/tutorial">
+                  Start Tutorial
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </CardFooter>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle>For Developers</CardTitle>
@@ -139,6 +172,12 @@ python main.py`}
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button asChild size="lg">
+              <Link href="/docs/tutorial">
+                Start Tutorial
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
               <Link href="/docs/installation">
                 Installation Guide
                 <ArrowRight className="ml-2 h-4 w-4" />

@@ -30,6 +30,7 @@ import {
   Mic,
   GitBranch,
   ChevronDown,
+  GraduationCap,
 } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { useState } from "react"
@@ -47,7 +48,7 @@ export function DocsSidebar() {
     return pathname === path
   }
 
-  const toggleGroup = (group: string) => {
+  const toggleGroup = (group: keyof typeof openGroups) => {
     setOpenGroups((prev) => ({
       ...prev,
       [group]: !prev[group],
@@ -56,7 +57,7 @@ export function DocsSidebar() {
 
   const handleFeatureClick = (feature: string) => {
     // Navigate to features page with a hash to identify the specific feature
-    router.push(`/docs/features#${feature.toLowerCase().replace(/\s+/g, "-")}`, undefined, { shallow: true })
+    router.push(`/docs/features#${feature.toLowerCase().replace(/\s+/g, "-")}`)
   }
 
   return (
@@ -71,6 +72,14 @@ export function DocsSidebar() {
                   <Link href="/docs" className="flex items-center gap-2">
                     <Home className="h-4 w-4 shrink-0" />
                     <span>Introduction</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={isActive("/docs/tutorial")}>
+                  <Link href="/docs/tutorial" className="flex items-center gap-2">
+                    <GraduationCap className="h-4 w-4 shrink-0" />
+                    <span>Tutorial</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
