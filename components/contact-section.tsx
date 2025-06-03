@@ -1,7 +1,6 @@
 "use client"
 
-import type React from "react"
-
+import React from "react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -18,21 +17,44 @@ export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Message sent!",
-        description: "We'll get back to you as soon as possible.",
+    try {
+      const response = await fetch("https://formspree.io/f/meokqvrn", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+        }),
       })
-      setName("")
-      setEmail("")
-      setMessage("")
+
+      if (response.ok) {
+        toast({
+          title: "Message sent!",
+          description: "We'll get back to you as soon as possible.",
+        })
+        setName("")
+        setEmail("")
+        setMessage("")
+      } else {
+        throw new Error("Form submission failed")
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      })
+    } finally {
       setIsSubmitting(false)
-    }, 1500)
+    }
   }
 
   return (
@@ -60,7 +82,13 @@ export function ContactSection() {
                 <CardDescription>Fill out the form below and we'll get back to you soon.</CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form
+                  id="contact-form"
+                  action="https://formspree.io/f/meokqvrn"
+                  method="POST"
+                  onSubmit={handleSubmit}
+                  className="space-y-4"
+                >
                   <div className="space-y-2">
                     <label
                       htmlFor="name"
@@ -70,6 +98,7 @@ export function ContactSection() {
                     </label>
                     <Input
                       id="name"
+                      name="name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Your name"
@@ -86,6 +115,7 @@ export function ContactSection() {
                     <Input
                       id="email"
                       type="email"
+                      name="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Your email"
@@ -101,6 +131,7 @@ export function ContactSection() {
                     </label>
                     <Textarea
                       id="message"
+                      name="message"
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="Your message"
@@ -111,7 +142,7 @@ export function ContactSection() {
                 </form>
               </CardContent>
               <CardFooter>
-                <Button onClick={handleSubmit} disabled={isSubmitting} className="w-full">
+                <Button type="submit" form="contact-form" disabled={isSubmitting} className="w-full">
                   {isSubmitting ? (
                     <>
                       <span className="mr-2">Sending...</span>
