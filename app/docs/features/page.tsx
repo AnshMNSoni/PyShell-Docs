@@ -18,7 +18,7 @@ import {
   Cpu,
   X,
 } from "lucide-react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import {
   Dialog,
   DialogContent,
@@ -28,6 +28,24 @@ import {
   DialogClose,
 } from "@/components/ui/dialog"
 import { useSearchParams } from "next/navigation"
+
+// Custom hook to detect mobile devices
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768) // Mobile breakpoint at 768px
+    }
+
+    checkIsMobile()
+    window.addEventListener("resize", checkIsMobile)
+
+    return () => window.removeEventListener("resize", checkIsMobile)
+  }, [])
+
+  return isMobile
+}
 
 export default function FeaturesPage() {
   const [selectedFeature, setSelectedFeature] = useState<{
@@ -39,8 +57,10 @@ export default function FeaturesPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const processingHashChange = useRef(false)
   const searchParams = useSearchParams()
+  const isMobile = useIsMobile()
 
   const featureDetails = {
+    // [Existing featureDetails object remains unchanged]
     "User Login": {
       code: `# User login functionality
 def login():
@@ -347,7 +367,7 @@ class MusicPlayer:
       pygame.mixer.music.stop()
       
       # Load and play the selected track
-      track_path = self.playlist[self.current_index]
+      track_path = GOOD self.playlist[self.current_index]
       pygame.mixer.music.load(track_path)
       pygame.mixer.music.play()
       self.current_track = track_path
@@ -646,9 +666,10 @@ class VoiceAssistant:
     },
   ]
 
+  const allFeatures = [...productivityFeatures, ...developerFeatures, ...advancedFeatures]
+
   // Find a feature by its hash
   const findFeatureByHash = useCallback((hash: string) => {
-    const allFeatures = [...productivityFeatures, ...developerFeatures, ...advancedFeatures]
     return allFeatures.find(
       (f) =>
         f.title.toLowerCase().replace(/\s+/g, "-") === hash ||
@@ -656,11 +677,24 @@ class VoiceAssistant:
     )
   }, [])
 
-  const handleFeatureClick = useCallback((feature: any) => {
+  interface Feature {
+    icon: React.ElementType
+    title: string
+    description: string
+  }
+
+  interface FeatureDetails {
+    [key: string]: {
+      code: string
+      screenshot: string
+    }
+  }
+
+  const handleFeatureClick = useCallback((feature: Feature) => {
     setSelectedFeature({
       title: feature.title,
       description: feature.description,
-      code: featureDetails[feature.title]?.code || "Code example coming soon...",
+      code: (featureDetails as FeatureDetails)[feature.title]?.code || "Code example coming soon...",
     })
     setDialogOpen(true)
 
@@ -693,12 +727,12 @@ class VoiceAssistant:
         setSelectedFeature({
           title: feature.title,
           description: feature.description,
-          code: featureDetails[feature.title]?.code || "Code example coming soon...",
+          code: (featureDetails as FeatureDetails)[feature.title]?.code || "Code example coming soon...",
         })
         setDialogOpen(true)
       }
     }
-  }, [findFeatureByHash, featureDetails, dialogOpen])
+  }, [findFeatureByHash, dialogOpen])
 
   // Handle hash changes
   useEffect(() => {
@@ -714,7 +748,7 @@ class VoiceAssistant:
           setSelectedFeature({
             title: feature.title,
             description: feature.description,
-            code: featureDetails[feature.title]?.code || "Code example coming soon...",
+            code: (featureDetails as FeatureDetails)[feature.title]?.code || "Code example coming soon...",
           })
           setDialogOpen(true)
         }
@@ -725,7 +759,7 @@ class VoiceAssistant:
     return () => {
       window.removeEventListener("hashchange", handleHashChange)
     }
-  }, [findFeatureByHash, featureDetails])
+  }, [findFeatureByHash])
 
   return (
     <div className="space-y-8">
@@ -734,74 +768,91 @@ class VoiceAssistant:
         <p className="text-lg text-muted-foreground mt-2">Discover the powerful capabilities of PyShell</p>
       </div>
 
-      <Tabs defaultValue="all" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="all">All Features</TabsTrigger>
-          <TabsTrigger value="productivity">Productivity</TabsTrigger>
-          <TabsTrigger value="developer">Developer</TabsTrigger>
-          <TabsTrigger value="advanced">Advanced</TabsTrigger>
-        </TabsList>
+      {isMobile ? (
+        // Mobile layout: Single grid without tabs
+        <div className="grid grid-cols-1 gap-6">
+          {allFeatures.map((feature, index) => (
+            <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
+              <FeatureCard
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+                index={index}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        // Desktop layout: Keep tabs
+        <Tabs defaultValue="all" className="w-full">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="all">All Features</TabsTrigger>
+            <TabsTrigger value="productivity">Productivity</TabsTrigger>
+            <TabsTrigger value="developer">Developer</TabsTrigger>
+            <TabsTrigger value="advanced">Advanced</TabsTrigger>
+          </TabsList>
 
-        <TabsContent value="all" className="mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...productivityFeatures, ...developerFeatures, ...advancedFeatures].map((feature, index) => (
-              <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
-                <FeatureCard
-                  icon={feature.icon}
-                  title={feature.title}
-                  description={feature.description}
-                  index={index}
-                />
-              </div>
-            ))}
-          </div>
-        </TabsContent>
+          <TabsContent value="all" className="mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {allFeatures.map((feature, index) => (
+                <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
+                  <FeatureCard
+                    icon={feature.icon}
+                    title={feature.title}
+                    description={feature.description}
+                    index={index}
+                  />
+                </div>
+              ))}
+            </div>
+          </TabsContent>
 
-        <TabsContent value="productivity" className="mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {productivityFeatures.map((feature, index) => (
-              <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
-                <FeatureCard
-                  icon={feature.icon}
-                  title={feature.title}
-                  description={feature.description}
-                  index={index}
-                />
-              </div>
-            ))}
-          </div>
-        </TabsContent>
+          <TabsContent value="productivity" className="mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {productivityFeatures.map((feature, index) => (
+                <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
+                  <FeatureCard
+                    icon={feature.icon}
+                    title={feature.title}
+                    description={feature.description}
+                    index={index}
+                  />
+                </div>
+              ))}
+            </div>
+          </TabsContent>
 
-        <TabsContent value="developer" className="mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {developerFeatures.map((feature, index) => (
-              <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
-                <FeatureCard
-                  icon={feature.icon}
-                  title={feature.title}
-                  description={feature.description}
-                  index={index}
-                />
-              </div>
-            ))}
-          </div>
-        </TabsContent>
+          <TabsContent value="developer" className="mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {developerFeatures.map((feature, index) => (
+                <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
+                  <FeatureCard
+                    icon={feature.icon}
+                    title={feature.title}
+                    description={feature.description}
+                    index={index}
+                  />
+                </div>
+              ))}
+            </div>
+          </TabsContent>
 
-        <TabsContent value="advanced" className="mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {advancedFeatures.map((feature, index) => (
-              <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
-                <FeatureCard
-                  icon={feature.icon}
-                  title={feature.title}
-                  description={feature.description}
-                  index={index}
-                />
-              </div>
-            ))}
-          </div>
-        </TabsContent>
-      </Tabs>
+          <TabsContent value="advanced" className="mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {advancedFeatures.map((feature, index) => (
+                <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
+                  <FeatureCard
+                    icon={feature.icon}
+                    title={feature.title}
+                    description={feature.description}
+                    index={index}
+                  />
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
+      )}
 
       <Dialog
         open={dialogOpen}
