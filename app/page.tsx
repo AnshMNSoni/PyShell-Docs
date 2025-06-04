@@ -30,7 +30,7 @@ export default function Home() {
       {/* Blurred overlay with slow fade-out */}
       {isCookieBannerVisible && (
         <div
-          className={`fixed inset-0 bg-white bg-opacity-80 backdrop-blur-sm z-40 pointer-events-none transition-opacity duration-[1500ms] ease-in-out ${
+          className={`fixed inset-0 bg-white bg-opacity-10 backdrop-blur-sm z-40 pointer-events-none transition-opacity duration-[1500ms] ease-in-out ${
             isCookieBannerVisible ? "opacity-100" : "opacity-0"
           }`}
         />
