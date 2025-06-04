@@ -2,11 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 
-const CookieBanner = () => {
+interface CookieBannerProps {
+  onChoice: () => void;
+}
+
+const CookieBanner: React.FC<CookieBannerProps> = ({ onChoice }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
 
   const handleButtonClick = () => {
+    // Store the user's choice in sessionStorage
+    sessionStorage.setItem("cookieConsent", "true");
     setIsExiting(true);
   };
 
@@ -14,10 +20,11 @@ const CookieBanner = () => {
     if (isExiting) {
       const timer = setTimeout(() => {
         setIsVisible(false);
-      }, 700); // Match animation duration
+        onChoice(); // Notify parent to remove overlay
+      }, 700); // Match banner slide-down animation duration
       return () => clearTimeout(timer);
     }
-  }, [isExiting]);
+  }, [isExiting, onChoice]);
 
   if (!isVisible) return null;
 
