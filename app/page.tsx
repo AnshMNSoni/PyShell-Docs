@@ -5,6 +5,7 @@ import { TutorialSection } from "@/components/tutorial-section"
 import { CTASection } from "@/components/cta-section"
 import { ContactSection } from "@/components/contact-section"
 import { StatsSection } from "@/components/stats-section"
+import CookieBanner from "@/components/CookieBanner"
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <TutorialSection />
       <ContactSection />
       <CTASection />
+      <CookieBanner />
     </main>
   )
 }
