@@ -62,388 +62,168 @@ export default function FeaturesPage() {
   const featureDetails = {
     // [Existing featureDetails object remains unchanged]
     "User Login": {
-      code: `# User login functionality
-def login():
-  print("PyShell Login")
-  username = input("Username: ")
-  password = input("Password: ")  # In real app, this would be masked
-  
-  # Validate credentials (simplified example)
-  if authenticate(username, password):
-      print(f"Welcome back, {username}!")
-      return True
-  else:
-      print("Invalid credentials. Please try again.")
-      return False
+      code: `# User Authentication
+def register_user():
+    users = load_users()
+    username = Prompt.ask("Enter new username")
+    role = Prompt.ask("Assign role (admin/user)", choices=["admin", "user"], default="user")
+    if username in users:
+        console.print("User already exists!", style="bold red")
+        return register_user()
+    password = Prompt.ask("Enter password", password=True)
+    users[username] = {"password": password, "role": role}
+    save_users(users)
+    console.print("User registered successfully!", style="bold green")
+    return username, role
 
-def authenticate(username, password):
-  # In a real application, this would check against a secure database
-  # and use proper password hashing
-  users = {"admin": "password123", "user": "userpass"}
-  return username in users and users[username] == password`,
+def login_user():
+    users = load_users()
+    username = Prompt.ask("Enter username")
+    password = Prompt.ask("Enter password", password=True)
+    if username in users and users[username]["password"] == password:
+        console.print("Login successful!", style="bold green")
+        return username, users[username]["role"]
+    else:
+        console.print("Invalid credentials!", style="bold red")
+        return login_user()`,
       screenshot: "/placeholder.svg?height=300&width=500",
     },
     "Task Scheduling": {
-      code: `# Task scheduling functionality
-import datetime
-import json
-import os
+      code: `def schedule_task(self, args):
+        if len(args) < 3:
+            console.print("Usage: schedule <interval> <unit> <command>", style="bold red")
+            console.print("Example: schedule 10 seconds say 'Hello'", style="bold yellow")
+            return
 
-TASKS_FILE = "tasks.json"
+        try:
+            interval = int(args[0])
+        except ValueError:
+            console.print("[bold red]Invalid interval! Must be an integer.[/bold red]")
+            return
 
-def load_tasks():
-  if os.path.exists(TASKS_FILE):
-      with open(TASKS_FILE, "r") as f:
-          return json.load(f)
-  return []
+        unit = args[1].lower()
 
-def save_tasks(tasks):
-  with open(TASKS_FILE, "w") as f:
-      json.dump(tasks, f, indent=2)
-
-def add_task():
-  tasks = load_tasks()
-  
-  title = input("Task title: ")
-  date_str = input("Due date (YYYY-MM-DD): ")
-  priority = input("Priority (high/medium/low): ").lower()
-  
-  try:
-      due_date = datetime.datetime.strptime(date_str, "%Y-%m-%d").strftime("%Y-%m-%d")
-  except ValueError:
-      print("Invalid date format. Please use YYYY-MM-DD.")
-      return
-  
-  if priority not in ["high", "medium", "low"]:
-      print("Invalid priority. Using 'medium' as default.")
-      priority = "medium"
-  
-  task = {
-      "id": len(tasks) + 1,
-      "title": title,
-      "due_date": due_date,
-      "priority": priority,
-      "completed": False
-  }
-  
-  tasks.append(task)
-  save_tasks(tasks)
-  print(f"Task '{title}' added successfully!")`,
+        if unit in ["seconds", "minutes", "hours"]:
+            job = getattr(schedule.every(interval), unit).do(self.run_scheduled_task, args)
+            job_id = len(scheduled_jobs) + 1
+            scheduled_jobs[job_id] = job
+            console.print(f"Task scheduled every {interval} {unit}. Task ID: {job_id}", style="bold cyan")
+        else:
+            console.print("[bold red]Invalid time unit! Use: seconds, minutes, or hours.[/bold red]")`,
       screenshot: "/placeholder.svg?height=300&width=500",
     },
     "Weather Tracking": {
-      code: `# Weather tracking functionality
-import requests
-import json
+      code: `class Weather:
+    def get_weather(self, args):
+        console = Console()
+        if not args:
+            console.print("Usage: weather <city>", style="bold red")
+            return
 
-API_KEY = "your_api_key_here"  # Replace with actual API key
-BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
+        city = " ".join(args)
+        api_key = os.getenv("API_KEY")
+        url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
 
-def get_weather(location):
-  try:
-      params = {
-          "q": location,
-          "appid": API_KEY,
-          "units": "metric"  # Use metric by default
-      }
-      
-      response = requests.get(BASE_URL, params=params)
-      data = response.json()
-      
-      if response.status_code == 200:
-          # Extract relevant weather information
-          weather_main = data["weather"][0]["main"]
-          weather_desc = data["weather"][0]["description"]
-          temp = data["main"]["temp"]
-          temp_f = (temp * 9/5) + 32  # Convert to Fahrenheit
-          humidity = data["main"]["humidity"]
-          wind_speed = data["wind"]["speed"]
-          
-          # Display weather information
-          print(f"Current Weather in {location}:")
-          print(f"Condition: {weather_desc.capitalize()}")
-          print(f"Temperature: {temp:.1f}°C / {temp_f:.1f}°F")
-          print(f"Humidity: {humidity}%")
-          print(f"Wind Speed: {wind_speed} m/s")
-      else:
-          print(f"Error: {data['message']}")
-  
-  except Exception as e:
-      print(f"An error occurred: {e}")`,
+        try:
+            response = requests.get(url)
+            data = response.json()
+
+            if data["cod"] != 200:
+                console.print(f"Error: {data['message']}", style="bold red")
+                return
+
+            weather_desc = data["weather"][0]["description"].capitalize()
+            temp = data["main"]["temp"]
+            humidity = data["main"]["humidity"]
+            wind_speed = data["wind"]["speed"]
+
+            console.print(f"\n[bold cyan]Weather in {city}:[/bold cyan]")
+            console.print(f"🌤  {weather_desc}")
+            console.print(f"🌡  Temperature: {temp}°C")
+            console.print(f"💧 Humidity: {humidity} %")
+            console.print(f"💨 Wind Speed: {wind_speed} m/s")
+
+        except Exception as e:
+            console.print(f"Failed to fetch weather data: {e}", style="bold red")`,
       screenshot: "/placeholder.svg?height=300&width=500",
     },
     "In-built Calculator": {
-      code: `# Advanced calculator functionality
-import math
-import sympy as sp
+      code: `def calculator(self, args):
+        if not args:
+            console.print("Usage:\n- calc <expression>\n- calc diff <expression> <variable>\n- calc integrate <expression> <variable>", style="bold red")
+            return
+        try:
+            command = args[0]
 
-def calculator():
-  print("PyShell Calculator")
-  print("Type 'help' for available operations or 'exit' to quit")
-  
-  while True:
-      expression = input("> ")
-      
-      if expression.lower() == 'exit':
-          break
-      elif expression.lower() == 'help':
-          show_help()
-          continue
-      
-      try:
-          # Check for special operations
-          if expression.startswith("diff("):
-              # Differentiation
-              expr_str = expression[5:-1]  # Remove diff() wrapper
-              result = differentiate(expr_str)
-          elif expression.startswith("integrate("):
-              # Integration
-              expr_str = expression[10:-1]  # Remove integrate() wrapper
-              result = integrate(expr_str)
-          else:
-              # Basic evaluation
-              result = eval(expression, {"__builtins__": {}}, {
-                  "sin": math.sin,
-                  "cos": math.cos,
-                  "tan": math.tan,
-                  "sqrt": math.sqrt,
-                  "pi": math.pi,
-                  "e": math.e,
-                  "log": math.log,
-                  "log10": math.log10,
-                  "pow": pow,
-                  "abs": abs
-              })
-          
-          print(result)
-      except Exception as e:
-          print(f"Error: {e}")
+            if command == "diff" and len(args) >= 3:
+                expression = " ".join(args[1:-1])
+                var = symbols(args[-1])
+                result = diff(sympify(expression), var)
+                console.print(f"Derivative of [bold yellow]{pretty(expression)}[/bold yellow] w.r.t [cyan]{var}[/cyan]:\n{pretty(result)}", style="bold green")
 
-def show_help():
-  print("Available operations:")
-  print("  Basic: +, -, *, /, ** (power)")
-  print("  Functions: sin(), cos(), tan(), sqrt(), log(), log10(), pow(), abs()")
-  print("  Constants: pi, e")
-  print("  Calculus: diff(expression), integrate(expression)")
-  print("Example: sin(pi/2) or diff(x**2)")
 
-def differentiate(expr_str):
-  x = sp.Symbol('x')
-  expr = sp.sympify(expr_str)
-  return sp.diff(expr, x)
+            elif command == "integrate" and len(args) >= 3:
+                expression = " ".join(args[1:-1])
+                var = symbols(args[-1])
+                result = integrate(sympify(expression), var)
+                console.print(f"Integral of [bold yellow]{pretty(expression)}[/bold yellow] w.r.t [cyan]{var}[/cyan]:\n{pretty(result)}", style="bold green")
 
-def integrate(expr_str):
-  x = sp.Symbol('x')
-  expr = sp.sympify(expr_str)
-  return sp.integrate(expr, x)`,
+            else:
+                expression = " ".join(args)
+                result = eval(expression, {"_builtins": None}, math.dict_)
+                console.print(f"Result: {result}", style="bold green")
+
+        except Exception as e:
+            console.print(f"Error: {e}", style="bold red")`,
       screenshot: "/placeholder.svg?height=300&width=500",
     },
     "Password Generator": {
-      code: `# Password generator functionality
-import random
-import string
-
-def generate_password():
-  print("PyShell Password Generator")
-  
-  try:
-      length = int(input("Password length (8-64): "))
-      if length < 8 or length > 64:
-          print("Invalid length. Using default length of 16.")
-          length = 16
-  except ValueError:
-      print("Invalid input. Using default length of 16.")
-      length = 16
-  
-  use_uppercase = input("Include uppercase letters? (y/n): ").lower() == 'y'
-  use_lowercase = input("Include lowercase letters? (y/n): ").lower() == 'y'
-  use_digits = input("Include numbers? (y/n): ").lower() == 'y'
-  use_special = input("Include special characters? (y/n): ").lower() == 'y'
-  
-  # Ensure at least one character type is selected
-  if not any([use_uppercase, use_lowercase, use_digits, use_special]):
-      print("At least one character type must be selected. Using lowercase letters.")
-      use_lowercase = True
-  
-  # Define character sets
-  chars = ""
-  if use_uppercase:
-      chars += string.ascii_uppercase
-  if use_lowercase:
-      chars += string.ascii_lowercase
-  if use_digits:
-      chars += string.digits
-  if use_special:
-      chars += string.punctuation
-  
-  # Generate password
-  password = ''.join(random.choice(chars) for _ in range(length))
-  
-  print("\nGenerated Password:")
-  print(password)
-  
-  # Calculate password strength
-  strength = calculate_strength(password)
-  print(f"Password Strength: {strength}")
-  
-  return password
-
-def calculate_strength(password):
-  # Simple password strength calculator
-  score = 0
-  
-  # Length check
-  if len(password) >= 12:
-      score += 2
-  elif len(password) >= 8:
-      score += 1
-  
-  # Character variety checks
-  if any(c.isupper() for c in password):
-      score += 1
-  if any(c.islower() for c in password):
-      score += 1
-  if any(c.isdigit() for c in password):
-      score += 1
-  if any(c in string.punctuation for c in password):
-      score += 1
-  
-  # Classify strength
-  if score >= 5:
-      return "Strong"
-  elif score >= 3:
-      return "Medium"
-  else:
-      return "Weak"`,
+      code: `def generate_password(*args):
+    length = Prompt.ask("Enter password length (default 12)", default="12")
+    try:
+        length = int(length)
+    except ValueError:
+        console.print("Invalid input. Using default length (12)", style="bold red")
+        length = 12
+        display_prompt(username)
+        return
+    
+    characters = string.ascii_letters + string.digits + string.punctuation
+    password = ''.join(random.choice(characters) for _ in range(length))
+    console.print(f"Generated Password: {password}", style="bold green")
+    clipboard_copy(password)`,
       screenshot: "/placeholder.svg?height=300&width=500",
     },
     "Music Player": {
-      code: `# Music player functionality
-import os
-import pygame
-from mutagen.mp3 import MP3
+      code: `class Song:
+    @staticmethod
+    def play_song(args):
+        if not args:
+            console.print("Usage: play <song-name>", style="bold red")
+            return
 
-class MusicPlayer:
-  def __init__(self):
-      pygame.mixer.init()
-      self.current_track = None
-      self.paused = False
-      self.playlist = []
-      self.current_index = 0
-      
-  def load_music_directory(self, directory):
-      """Load all MP3 files from a directory into the playlist"""
-      self.playlist = []
-      
-      if not os.path.exists(directory):
-          print(f"Directory not found: {directory}")
-          return False
-          
-      for file in os.listdir(directory):
-          if file.endswith(".mp3"):
-              self.playlist.append(os.path.join(directory, file))
-              
-      if not self.playlist:
-          print("No MP3 files found in the directory.")
-          return False
-          
-      print(f"Loaded {len(self.playlist)} tracks.")
-      return True
-      
-  def play(self, index=None):
-      """Play a track from the playlist"""
-      if not self.playlist:
-          print("Playlist is empty. Load music first.")
-          return
-          
-      if index is not None:
-          if 0 <= index < len(self.playlist):
-              self.current_index = index
-          else:
-              print(f"Invalid track number. Please select 0-{len(self.playlist)-1}")
-              return
-              
-      # Stop any currently playing music
-      pygame.mixer.music.stop()
-      
-      # Load and play the selected track
-      track_path = GOOD self.playlist[self.current_index]
-      pygame.mixer.music.load(track_path)
-      pygame.mixer.music.play()
-      self.current_track = track_path
-      self.paused = False
-      
-      # Display track info
-      self._display_track_info()
-      
-  def pause(self):
-      """Pause or unpause the current track"""
-      if not self.current_track:
-          print("No track is currently playing.")
-          return
-          
-      if self.paused:
-          pygame.mixer.music.unpause()
-          self.paused = False
-          print("Playback resumed.")
-      else:
-          pygame.mixer.music.pause()
-          self.paused = True
-          print("Playback paused.")
-          
-  def stop(self):
-      """Stop playback"""
-      pygame.mixer.music.stop()
-      self.current_track = None
-      self.paused = False
-      print("Playback stopped.")
-      
-  def next_track(self):
-      """Play the next track in the playlist"""
-      if not self.playlist:
-          print("Playlist is empty.")
-          return
-          
-      self.current_index = (self.current_index + 1) % len(self.playlist)
-      self.play()
-      
-  def prev_track(self):
-      """Play the previous track in the playlist"""
-      if not self.playlist:
-          print("Playlist is empty.")
-          return
-          
-      self.current_index = (self.current_index - 1) % len(self.playlist)
-      self.play()
-      
-  def list_tracks(self):
-      """List all tracks in the playlist"""
-      if not self.playlist:
-          print("Playlist is empty.")
-          return
-          
-      print("\nPlaylist:")
-      for i, track_path in enumerate(self.playlist):
-          track_name = os.path.basename(track_path)
-          prefix = "▶ " if i == self.current_index and self.current_track else "  "
-          print(f"{prefix}{i}. {track_name}")
-          
-  def _display_track_info(self):
-      """Display information about the current track"""
-      if not self.current_track:
-          return
-          
-      track_name = os.path.basename(self.current_track)
-      print(f"\nNow playing: {track_name}")
-      
-      # Get track duration using mutagen
-      try:
-          audio = MP3(self.current_track)
-          duration = audio.info.length
-          minutes, seconds = divmod(int(duration), 60)
-          print(f"Duration: {minutes}:{seconds:02d}")
-      except:
-          print("Duration: Unknown")`,
+        song_name = "".join(args)
+
+        try:
+            # Search for the song using saavn.dev API
+            url = f"https://saavn.dev/api/search/songs?query={song_name}"
+            response = requests.get(url)
+            data = response.json()
+
+            # Get first song result
+            results = data['data']['results']
+            if not results:
+                raise Exception("No results found.")
+
+            song = results[0]
+            song_title = song['name']
+            song_url = song['url']
+
+            console.print(f"🎵 Opening in browser: {song_title}", style="bold green")
+            webbrowser.open(song_url)
+
+        except Exception as e:
+            console.print(f"❌ Failed to find or play the song: {e}", style="bold red")`,
       screenshot: "/placeholder.svg?height=300&width=500",
     },
     "Git Integration": {
@@ -517,72 +297,18 @@ class GitDashboard:
       screenshot: "/placeholder.svg?height=300&width=500",
     },
     "Voice Input": {
-      code: `# Voice input functionality
-import speech_recognition as sr
-import pyttsx3
-import time
-import re
-import threading
-
-class VoiceAssistant:
-  def __init__(self):
-      # Initialize the speech recognizer
-      self.recognizer = sr.Recognizer()
-      
-      # Initialize text-to-speech engine
-      self.engine = pyttsx3.init()
-      
-      # Set properties
-      self.engine.setProperty('rate', 150)  # Speed of speech
-      self.engine.setProperty('volume', 1.0)  # Volume (0.0 to 1.0)
-      
-      # Get available voices
-      voices = self.engine.getProperty('voices')
-      # Set a voice (typically index 0 is male, 1 is female)
-      if len(voices) > 1:
-          self.engine.setProperty('voice', voices[1].id)  # Female voice
-          
-      self.is_listening = False
-      self.commands = {
-          r"open calculator|launch calculator|start calculator": "calc",
-          r"check weather|weather for|weather in": "weather",
-          r"schedule task|add task|new task": "schedule",
-          r"generate password|new password|create password": "genpass",
-          r"git dashboard|show git|git status": "git",
-          r"play music|start music|music player": "music",
-          r"system info|system status|show system": "sysinfo",
-          r"change layout|terminal layout|customize layout": "layout",
-          r"help|show help|available commands": "help",
-          r"exit|quit|close": "exit"
-      }
-      
-  def speak(self, text):
-      """Convert text to speech"""
-      print(f"Assistant: {text}")
-      self.engine.say(text)
-      self.engine.runAndWait()
-      
-  def listen(self):
-      """Listen for voice input and convert to text"""
-      with sr.Microphone() as source:
-          print("Listening...")
-          self.recognizer.adjust_for_ambient_noise(source, duration=0.5)
-          try:
-              audio = self.recognizer.listen(source, timeout=5, phrase_time_limit=5)
-              print("Processing speech...")
-              
-              text = self.recognizer.recognize_google(audio)
-              print(f"You said: {text}")
-              return text.lower()
-          except sr.WaitTimeoutError:
-              print("No speech detected")
-              return ""
-          except sr.UnknownValueError:
-              print("Could not understand audio")
-              return ""
-          except sr.RequestError as e:
-              print(f"Could not request results; {e}")
-              return ""`,
+      code: `def git_voice_command(self, *args):
+        """Executes Git commands using voice recognition."""
+        recognizer = sr.Recognizer()
+        with sr.Microphone() as source:
+            console.print("Listening for Git command...", style="bold yellow")
+            audio = recognizer.listen(source)
+        try:
+            command = recognizer.recognize_google(audio).lower()
+            console.print(f"Executing: {command}", style="bold cyan")
+            self.run_git_command(f"git {command}", f"git {command}", f"git {command}")
+        except Exception:
+            console.print("Could not understand command.", style="bold red")`,
       screenshot: "/placeholder.svg?height=300&width=500",
     },
   }
@@ -625,16 +351,6 @@ class VoiceAssistant:
       icon: Terminal,
       title: "Linux Commands Support",
       description: "Use familiar Linux commands like ls, mkdir, sysinfo, etc.",
-    },
-    {
-      icon: Cpu,
-      title: "Process Synchronization",
-      description: "Better system control with process management",
-    },
-    {
-      icon: Layout,
-      title: "Terminal Layout Customization",
-      description: "Change and customize your terminal layout",
     },
     {
       icon: GitBranch,
