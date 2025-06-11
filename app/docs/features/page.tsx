@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import { FeatureCard } from "@/components/feature-card"
 import {
   Calculator,
   Calendar,
@@ -28,6 +27,21 @@ import {
   DialogClose,
 } from "@/components/ui/dialog"
 import { useSearchParams } from "next/navigation"
+
+// Custom FeatureCard component (new implementation)
+const FeatureCard = ({ icon: Icon, title, desc, index }: { icon: any; title: string; desc: string; index: number }) => {
+  return (
+    <div
+      className="flex flex-col p-6 bg-card rounded-lg shadow-md hover:shadow-lg transition-shadow border border-border h-[200px] w-full" // Fixed height
+    >
+      <div className="flex items-center mb-4">
+        <Icon className="h-6 w-6 text-primary mr-2" />
+        <h3 className="text-lg font-semibold">{title}</h3>
+      </div>
+      <p className="text-sm text-muted-foreground flex-grow">{desc}</p>
+    </div>
+  )
+}
 
 // Custom hook to detect mobile devices
 const useIsMobile = () => {
@@ -60,7 +74,6 @@ export default function FeaturesPage() {
   const isMobile = useIsMobile()
 
   const featureDetails = {
-    // [Existing featureDetails object remains unchanged]
     "User Login": {
       code: `# User Authentication
 def register_user():
@@ -311,38 +324,54 @@ class GitDashboard:
             console.print("Could not understand command.", style="bold red")`,
       screenshot: "/placeholder.svg?height=300&width=500",
     },
+    "Linux Commands Support": {
+      code: "Code example coming soon...",
+      screenshot: "/placeholder.svg?height=300&width=500",
+    },
+    "Git History": {
+      code: "Code example coming soon...",
+      screenshot: "/placeholder.svg?height=300&width=500",
+    },
+    "Advanced Math Functions": {
+      code: "Code example coming soon...",
+      screenshot: "/placeholder.svg?height=300&width=500",
+    },
+    "Data Visualization": {
+      code: "Code example coming soon...",
+      screenshot: "/placeholder.svg?height=300&width=500",
+    },
   }
 
   const productivityFeatures = [
     {
       icon: Lock,
       title: "User Login",
-      description: "Secure access with user authentication system",
+      desc: "Secure access with user authentication system",
     },
     {
       icon: Calendar,
       title: "Task Scheduling",
-      description: "Schedule and manage tasks for better productivity",
+      desc: "Schedule and manage tasks for better productivity",
     },
     {
       icon: Cloud,
       title: "Weather Tracking",
-      description: "Get real-time weather updates right from the terminal",
+      desc: "Get real-time weather updates right from the terminal",
     },
     {
       icon: Calculator,
       title: "In-built Calculator",
-      description: "Perform quick calculations without leaving the terminal",
+      desc: "Perform quick calculations without leaving the terminal",
     },
     {
       icon: Key,
       title: "Password Generator",
-      description: "Generate secure passwords with customizable parameters",
+      desc: "Generate secure passwords with customizable parameters",
     },
     {
       icon: Music,
       title: "Music Player",
-      description: "Play songs directly from your terminal",
+      desc: "Play songs directly from your terminal",
     },
   ]
 
@@ -350,17 +379,17 @@ class GitDashboard:
     {
       icon: Terminal,
       title: "Linux Commands Support",
-      description: "Use familiar Linux commands like ls, mkdir, sysinfo, etc.",
+      desc: "Use familiar Linux commands like ls, mkdir, sysinfo, etc.",
     },
     {
       icon: GitBranch,
       title: "Git Integration",
-      description: "Visualize and manage your Git repositories",
+      desc: "Visualize and manage your Git repositories",
     },
     {
       icon: GitCommit,
       title: "Git History",
-      description: "View and navigate through your Git commit history",
+      desc: "View and navigate through your Git commit history",
     },
   ]
 
@@ -368,17 +397,17 @@ class GitDashboard:
     {
       icon: Calculator,
       title: "Advanced Math Functions",
-      description: "Perform calculus, logarithmic, and trigonometric operations",
+      desc: "Perform calculus, logarithmic, and trigonometric operations",
     },
     {
       icon: Mic,
       title: "Voice Input",
-      description: "Control your terminal with voice commands",
+      desc: "Control your terminal with voice commands",
     },
     {
       icon: LineChart,
       title: "Data Visualization",
-      description: "Visualize data directly in your terminal",
+      desc: "Visualize data directly in your terminal",
     },
   ]
 
@@ -396,7 +425,7 @@ class GitDashboard:
   interface Feature {
     icon: React.ElementType
     title: string
-    description: string
+    desc: string
   }
 
   interface FeatureDetails {
@@ -409,7 +438,7 @@ class GitDashboard:
   const handleFeatureClick = useCallback((feature: Feature) => {
     setSelectedFeature({
       title: feature.title,
-      description: feature.description,
+      description: feature.desc,
       code: (featureDetails as FeatureDetails)[feature.title]?.code || "Code example coming soon...",
     })
     setDialogOpen(true)
@@ -442,7 +471,7 @@ class GitDashboard:
       if (feature) {
         setSelectedFeature({
           title: feature.title,
-          description: feature.description,
+          description: feature.desc,
           code: (featureDetails as FeatureDetails)[feature.title]?.code || "Code example coming soon...",
         })
         setDialogOpen(true)
@@ -463,7 +492,7 @@ class GitDashboard:
         if (feature) {
           setSelectedFeature({
             title: feature.title,
-            description: feature.description,
+            description: feature.desc,
             code: (featureDetails as FeatureDetails)[feature.title]?.code || "Code example coming soon...",
           })
           setDialogOpen(true)
@@ -492,7 +521,7 @@ class GitDashboard:
               <FeatureCard
                 icon={feature.icon}
                 title={feature.title}
-                description={feature.description}
+                desc={feature.desc}
                 index={index}
               />
             </div>
@@ -509,13 +538,13 @@ class GitDashboard:
           </TabsList>
 
           <TabsContent value="all" className="mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[200px]">
               {allFeatures.map((feature, index) => (
                 <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
                   <FeatureCard
                     icon={feature.icon}
                     title={feature.title}
-                    description={feature.description}
+                    desc={feature.desc}
                     index={index}
                   />
                 </div>
@@ -524,13 +553,13 @@ class GitDashboard:
           </TabsContent>
 
           <TabsContent value="productivity" className="mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[200px]">
               {productivityFeatures.map((feature, index) => (
                 <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
                   <FeatureCard
                     icon={feature.icon}
                     title={feature.title}
-                    description={feature.description}
+                    desc={feature.desc}
                     index={index}
                   />
                 </div>
@@ -538,35 +567,36 @@ class GitDashboard:
             </div>
           </TabsContent>
 
-          <TabsContent value="developer" className="mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {developerFeatures.map((feature, index) => (
-                <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
-                  <FeatureCard
-                    icon={feature.icon}
-                    title={feature.title}
-                    description={feature.description}
-                    index={index}
-                  />
+            <TabsContent value="developer" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[200px]">
+                {developerFeatures.map((feature, index) => (
+                  <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
+                    <FeatureCard
+                      icon={feature.icon}
+                      title={feature.title}
+                      desc={feature.desc}
+                      index={index}
+                    />
+                  {""}
                 </div>
-              ))}
-            </div>
-          </TabsContent>
+                ))}
+              </div>
+            </TabsContent>
 
-          <TabsContent value="advanced" className="mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {advancedFeatures.map((feature, index) => (
-                <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
-                  <FeatureCard
-                    icon={feature.icon}
-                    title={feature.title}
-                    description={feature.description}
-                    index={index}
-                  />
-                </div>
-              ))}
-            </div>
-          </TabsContent>
+<TabsContent value="advanced" className="mt-6">
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[200px]">
+    {advancedFeatures.map((feature, index) => (
+      <div key={index} onClick={() => handleFeatureClick(feature)} className="cursor-pointer">
+        <FeatureCard
+          icon={feature.icon}
+          title={feature.title}
+          desc={feature.desc}
+          index={index}
+        />
+      </div>
+    ))}
+  </div>
+</TabsContent>
         </Tabs>
       )}
 
