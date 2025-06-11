@@ -70,7 +70,7 @@ export function HeroSection() {
               <div className="bg-black p-3 sm:p-4 md:p-6 text-green-400 font-mono text-xs sm:text-sm overflow-hidden">
                 <div className="mb-2 break-words">$ python -m pyshell</div>
                 <div className="mb-2 break-words">
-                  <span className="text-blue-400">PyShell v1.0.0</span> - The Future of Terminals/CLI
+                  <span className="text-blue-400">PyShell v1.4.2</span> 
                 </div>
                 <div className="mb-2 break-words">Welcome back, user! Type 'help' to see available commands.</div>
                 <div className="mb-2 break-words">$ help</div>
