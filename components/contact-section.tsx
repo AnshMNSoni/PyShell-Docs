@@ -209,7 +209,7 @@ export function ContactSection() {
             <div className="rounded-lg border p-4 sm:p-6 bg-primary/5">
               <h3 className="text-base sm:text-lg font-medium mb-2">Office Hours</h3>
               <p className="text-xs sm:text-sm text-muted-foreground">
-                Our team is available Monday through Friday, 10:30 AM to 5:00 PM EST.
+                Our team is available Monday through Friday, 10:30 AM to 5:00 PM IST.
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground mt-2">
                 For urgent inquiries, please email us with "URGENT" in the subject line.
