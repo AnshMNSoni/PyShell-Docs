@@ -24,7 +24,7 @@ export default function InstallationPage() {
         <Info className="h-5 w-5" />
         <AlertTitle className="text-base">Prerequisites</AlertTitle>
         <AlertDescription className="text-sm">
-          PyShell requires Python 3.8 or higher and pip package manager.{" "}
+          PyShell requires Python 3.12.3 and pip package manager.{" "}
           <FAQLink faqId="why-python">Why Python?</FAQLink>
         </AlertDescription>
       </Alert>
@@ -39,7 +39,7 @@ export default function InstallationPage() {
             <ul className="space-y-2">
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-primary" />
-                <span>Python 3.8+</span>
+                <span>Python 3.12.3</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-primary" />
@@ -123,7 +123,7 @@ export default function InstallationPage() {
           <Steps>
             <StepItem step={1} title="Install Python">
               <p>
-                Download and install Python 3.8 or higher from{" "}
+                Download and install Python 3.12.3 from{" "}
                 <a
                   href="https://www.python.org/downloads/"
                   target="_blank"
