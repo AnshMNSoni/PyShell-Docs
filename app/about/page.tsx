@@ -43,9 +43,9 @@ export default function AboutPage() {
       linkedin: "https://www.linkedin.com/in/zeel-t-0301ba2a5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
       email: "zttrivedi@gmail.com",
       specialties: [
-        { icon: Globe, label: "Turning abstract ideas into visuals." },
+        { icon: Lightbulb, label: "Turning abstract ideas into visuals." },
         { icon: Figma, label: "Figma " },
-        { icon: Code, label: "UI/UX Designer" },
+        { icon: Palette, label: "UI/UX Designer" },
       ],
     },
   ]
