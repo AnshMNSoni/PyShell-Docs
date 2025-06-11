@@ -72,9 +72,7 @@ export function HeroSection() {
                 <div className="mb-2 break-words">
                   <span className="text-blue-400">PyShell v1.4.2</span> 
                 </div>
-                <div className="mb-2 break-words">Welcome back, user! Type 'help' to see available commands.</div>
-                <div className="mb-2 break-words">$ help</div>
-                <div className="mb-1 break-words">Available commands:</div>
+                <div className="mb-2 break-words">Welcome back, user! Commands available in PyShellCommands.</div>
                 <div className="hidden sm:block">
                   <div className="mb-1 break-words">- calc: Open calculator</div>
                   <div className="mb-1 break-words">- weather: Check weather</div>
@@ -86,6 +84,7 @@ export function HeroSection() {
                   <div className="mb-1 break-words">- layout: Change terminal layout</div>
                 </div>
                 <div className="block sm:hidden mb-1 break-words">- calc, weather, git, music...</div>
+                <div className="mb-2 break-words">and many more...</div>
                 <div className="animate-blink">$&nbsp;</div>
               </div>
               <div className="absolute -bottom-6 -left-6 h-24 w-24 rounded-full bg-primary/20 blur-xl"></div>

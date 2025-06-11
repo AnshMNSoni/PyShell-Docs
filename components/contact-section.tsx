@@ -195,7 +195,7 @@ export function ContactSection() {
                     Join our community for help and discussions
                   </p>
                   <a
-                    href="https://linkedin.com/company/py-shell"
+                    href="https://github.com/AnshMNSoni/PyShell/discussions/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary hover:underline mt-2 inline-block text-sm"
