@@ -36,7 +36,7 @@ export default function AboutPage() {
     },
     {
       name: "Zeel Trivedi",
-      role: "Graphic Designer UI/UX",
+      role: "Graphic Designer",
       description: "Design Enthusiatic",
       image: "/zt.jpg?height=300&width=300",
       github: "https://github.com/zeel46",
