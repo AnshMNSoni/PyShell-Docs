@@ -144,7 +144,7 @@ export function Preloader({ duration = 3500, onLoadingComplete }: PreloaderProps
               transition={{ duration: 0.5 }}
               className="text-primary/70 text-xs sm:text-sm md:text-base mb-6 sm:mb-8 tracking-wider"
             >
-              THE FUTURE OF TERMINALS/CLI
+             
             </motion.div>
 
             {/* Progress bar */}
