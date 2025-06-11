@@ -195,17 +195,11 @@ export function DocsSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton disabled className="opacity-70 flex items-center gap-2">
-                      <Command className="h-4 w-4 shrink-0" />
-                      <span>Commands</span>
-                      <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton disabled className="opacity-70 flex items-center gap-2">
-                      <Settings className="h-4 w-4 shrink-0" />
-                      <span>Configuration</span>
-                      <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
+                    <SidebarMenuButton asChild isActive={isActive("/docs/commands")}>
+                      <Link href="/docs/commands" className="flex items-center gap-2">
+                        <Command className="h-4 w-4 shrink-0" />
+                        <span>Commands</span>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
@@ -214,6 +208,13 @@ export function DocsSidebar() {
                         <Code className="h-4 w-4 shrink-0" />
                         <span>API Reference</span>
                       </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton disabled className="opacity-70 flex items-center gap-2">
+                      <Settings className="h-4 w-4 shrink-0" />
+                      <span>Configuration</span>
+                      <span className="ml-auto text-xs text-muted-foreground">Coming Soon</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>

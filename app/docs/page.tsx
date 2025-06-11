@@ -39,7 +39,11 @@ export default function DocsPage() {
                 Features Overview
               </Link>
             </li>
-            <li className="text-muted-foreground">Commands (Coming Soon)</li>
+            <li>
+              <Link href="/docs/commands" className="text-primary hover:underline">
+                Commands
+              </Link>
+            </li>
             <li>
               <Link href="/docs/api-reference" className="text-primary hover:underline">
                 API Reference

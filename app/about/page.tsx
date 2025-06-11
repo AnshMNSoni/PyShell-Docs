@@ -1,5 +1,5 @@
 "use client"
-import { Github, Linkedin, Mail, Code, Palette, Terminal, Globe, Lightbulb } from "lucide-react"
+import { Github, Linkedin, Mail, Code, Palette, Terminal, Globe, Lightbulb, Figma, Image as ImageIcon } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -34,6 +34,20 @@ export default function AboutPage() {
         { icon: Code, label: "UI/UX Designer" },
       ],
     },
+    {
+      name: "Zeel Trivedi",
+      role: "Graphic Designer UI/UX",
+      description: "Design Enthusiatic",
+      image: "/zt.jpg?height=300&width=300",
+      github: "https://github.com/zeel46",
+      linkedin: "https://www.linkedin.com/in/zeel-t-0301ba2a5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      email: "zttrivedi@gmail.com",
+      specialties: [
+        { icon: Globe, label: "Turning abstract ideas into visuals." },
+        { icon: Figma, label: "Figma " },
+        { icon: Code, label: "UI/UX Designer" },
+      ],
+    },
   ]
 
   return (
@@ -53,8 +67,7 @@ export default function AboutPage() {
           <div className="text-center space-y-2 sm:space-y-3">
             <h2 className="text-base sm:text-lg md:text-xl font-semibold">Our Mission</h2>
             <p className="text-xs sm:text-sm md:text-base text-muted-foreground max-w-xl mx-auto">
-              To create an advanced, user-friendly terminal that combines the power of traditional command-line
-              interfaces with modern features, making development more productive and enjoyable for everyone.
+              To redefine and elevate standard tools to the next level they truly deserve - making them more powerful, intuitive, and enjoyable. The terminal is just one example of how we’re transforming conventional experiences into modern, impactful solutions.
             </p>
           </div>
         </div>
