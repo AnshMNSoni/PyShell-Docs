@@ -208,7 +208,7 @@ const tutorialSteps: TutorialStep[] = [
           <div>$ git clone https://github.com/AnshMNSoni/PyShell.git</div>
           <div className="text-blue-400">Cloning into 'PyShell'...</div>
           <div>$ cd PyShell</div>
-          <div>$ pip install -r requirements.txt</div>
+          <div>$ python -m pip install -r requirements.txt</div>
           <div className="text-yellow-400">Successfully installed!</div>
         </motion.div>
       </div>

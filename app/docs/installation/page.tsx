@@ -169,7 +169,7 @@ export default function InstallationPage() {
 
             <StepItem step={5} title="Install Dependencies">
               <pre className="bg-muted p-2 rounded-md mt-2 overflow-x-auto">
-                <code>pip install -r requirements.txt</code>
+                <code>python -m pip install -r requirements.txt</code>
               </pre>
             </StepItem>
 
