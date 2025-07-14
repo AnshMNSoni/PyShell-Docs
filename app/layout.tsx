@@ -1,13 +1,13 @@
-import type React from "react"
+import { SidebarProvider } from "@/components/sidebar-provider"
+import { SiteFooter } from "@/components/site-footer"
+import { SiteHeader } from "@/components/site-header"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import type React from "react"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { SidebarProvider } from "@/components/sidebar-provider"
-import { Toaster } from "@/components/ui/toaster"
-import { Preloader } from "@/components/preloader"
+// import { Preloader } from "@/components/preloader"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -31,7 +31,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <SidebarProvider>
-            <Preloader />
+            {/* <Preloader /> */}
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
               <div className="flex-1">{children}</div>
