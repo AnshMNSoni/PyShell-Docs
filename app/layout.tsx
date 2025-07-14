@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "PyShell | Docs",
   description: "An advanced Python-based terminal with powerful features for developers",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/fav.png",
   },
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
     generator: 'v0.dev'
