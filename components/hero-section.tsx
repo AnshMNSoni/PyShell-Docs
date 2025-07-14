@@ -1,4 +1,4 @@
-import { AnimatedGridPattern } from "@/components/Hero-Components/animated-grid-pattern";
+// import { AnimatedGridPattern } from "@/components/Hero-Components/animated-grid-pattern";
 import { InteractiveHoverButton } from "@/components/Hero-Components/interactive-hover-button";
 import { VelocityScroll } from "@/components/Hero-Components/scroll-based-velocity";
 import { MorphingText } from "@/components/Hero-Components/morphing-text";
@@ -18,9 +18,6 @@ export function HeroSection() {
   return (
     <>
       <section className="w-full py-10 sm:py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-b from-background via-background to-muted/30 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <AnimatedGridPattern duration={0.6} />
-        </div>
         <div className="container px-4 md:px-6 relative">
           <div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_550px] backdrop-blur-[2px]">
             <div className="flex flex-col justify-center space-y-4">
