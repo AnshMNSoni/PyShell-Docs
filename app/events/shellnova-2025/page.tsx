@@ -393,6 +393,32 @@ export default function ShellNova2025() {
             ))}
           </div>
         </div>
+
+        {/* Participation Certificate Section */}
+        <div className="mb-12 sm:mb-16 md:mb-20">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+              <Award className="w-6 h-6 text-green-600" />
+              Participation Certificate
+            </h2>
+            <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
+              Thank you for being a part of ShellNova 2025! Every participant is appreciated. Click the button below to download your participation certificate.
+            </p>
+          </div>
+
+          <div className="flex justify-center">
+            <Button size="lg" className="text-base sm:text-lg" asChild>
+              <Link
+                href="https://drive.google.com/drive/folders/1utzQ5dbx7gtEAN7Q7QYlkAKzZfxLzws9?usp=drive_link" 
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                🏅 Download Participation Certificate
+                <ExternalLink className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   )
