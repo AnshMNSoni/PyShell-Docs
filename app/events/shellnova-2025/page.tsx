@@ -34,7 +34,7 @@ export default function ShellNova2025() {
     {
       position: "Winner",
       name: "Prince Patel",
-      title: "Cyber Security & AI Enthusiast",
+      title: "Data Science & AI Enthusiast",
       location: "Aravalli, Gujarat",
       project: "AI panel, Suggestions, UI improved.",
       description:
