@@ -93,7 +93,7 @@ export function Preloader({ duration = 3500, onLoadingComplete }: PreloaderProps
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
         >
           {/* Particles background */}
           <div ref={particlesRef} className="absolute inset-0 overflow-hidden opacity-70" />
@@ -144,11 +144,11 @@ export function Preloader({ duration = 3500, onLoadingComplete }: PreloaderProps
               transition={{ duration: 0.5 }}
               className="text-primary/70 text-xs sm:text-sm md:text-base mb-6 sm:mb-8 tracking-wider"
             >
-             
+              Your Code, Our Shell
             </motion.div>
 
             {/* Progress bar */}
-            <div className="w-36 sm:w-48 md:w-64 h-1 bg-gray-800 rounded-full overflow-hidden">
+            <div className="w-36 sm:w-48 md:w-64 h-1 bg-muted rounded-full overflow-hidden">
               <motion.div
                 className="h-full bg-primary"
                 style={{ width: `${progress}%` }}
@@ -175,7 +175,9 @@ export function Preloader({ duration = 3500, onLoadingComplete }: PreloaderProps
 
             {/* Hexagon grid background effect */}
             <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 opacity-20 overflow-hidden">
-              <div className="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NiIgaGVpZ2h0PSI0OSI+PHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMzRkMzk5IiBzdHJva2Utd2lkdGg9IjEuNSIgZD0iTTAgNDIuNUw3LjE1IDI4LjUgMCAxNC41IDE0LjMgMGwyOC42IDE0LjUgMjguNTYtMTQuNUw4NiAwIDc4Ljg1IDE0LjUgODYgMjguNSA3MS43IDQzIDQzLjEgMjguNSAxNC41NCA0M3oiIG9wYWNpdHk9Ii4zIi8+PC9zdmc+')] bg-repeat" />
+              <div
+                className="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NiIgaGVpZ2h0PSI0OSI+PHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJ2YXIoLS1wcmktbWFyeSk7IiBzdHJva2Utd2lkdGg9IjEuNSIgZD0iTTAgNDIuNUw3LjE1IDI4LjUgMCAxNC41IDE0LjMgMGwyOC42IDE0LjUgMjguNTYtMTQuNUw4NiAwIDc4Ljg1IDE0LjUgODYgMjguNSA3MS43IDQzIDQzLjEgMjguNSAxNC41NCA0M3oiIG9wYWNpdHk9Ii4zIi8+PC9zdmc+')]"
+              />
             </div>
           </div>
         </motion.div>

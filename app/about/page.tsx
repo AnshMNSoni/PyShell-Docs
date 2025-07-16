@@ -10,7 +10,7 @@ export default function AboutPage() {
       name: "Ansh Soni",
       role: "Founder of PyShell",
       description: "FullStack Python Developer",
-      image: "/as.jpg?height=300&width=300",
+      image: "/as.jpg?height=600&width=600",
       github: "https://github.com/AnshMNSoni/",
       linkedin: "https://linkedin.com/in/anshmnsoni/",
       email: "ansh.mn.soni7505@gmail.com",
@@ -24,7 +24,7 @@ export default function AboutPage() {
       name: "Priyank Patel",
       role: "Developer of PyShell Website",
       description: "Web and GUI developer",
-      image: "/pp.jpg?height=300&width=300",
+      image: "/pp.jpg?height=600&width=600",
       github: "https://github.com/Patel-Priyank-1602/",
       linkedin: "https://www.linkedin.com/in/patel-priyank-945131288/",
       email: "patelpriyank2526@gmail.com",
@@ -38,7 +38,7 @@ export default function AboutPage() {
       name: "Zeel Trivedi",
       role: "Graphic Designer",
       description: "Design Enthusiatic",
-      image: "/zt.jpg?height=300&width=300",
+      image: "/zt.jpg?height=600&width=600",
       github: "https://github.com/zeel46",
       linkedin: "https://www.linkedin.com/in/zeel-t-0301ba2a5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
       email: "zttrivedi@gmail.com",
@@ -80,7 +80,7 @@ export default function AboutPage() {
               <Card key={index} className="overflow-hidden hover:shadow-md transition-all duration-300">
                 <CardHeader className="text-center pb-2 sm:pb-3">
                   <div className="mx-auto mb-2 sm:mb-3 group">
-                    <div className="relative overflow-hidden rounded-full w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24">
+                    <div className="relative overflow-hidden rounded-full w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40">
                       <img
                         src={member.image || "/placeholder.svg"}
                         alt={`${member.name} profile`}
@@ -128,12 +128,7 @@ export default function AboutPage() {
                         LinkedIn
                       </Link>
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      asChild
-                      className="text-xs sm:text-sm h-8 sm:h-9 col-span-2 sm:col-span-1"
-                    >
+                    <Button variant="outline" size="sm" asChild className="text-xs sm:text-sm h-8 sm:h-9">
                       <Link href={`mailto:${member.email}`}>
                         <Mail className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                         Email
@@ -166,50 +161,6 @@ export default function AboutPage() {
               <CardDescription className="text-xs sm:text-sm">Open Source</CardDescription>
             </CardHeader>
           </Card>
-        </div>
-
-        {/* Timeline */}
-        <div className="space-y-4 sm:space-y-6">
-          <h2 className="text-base sm:text-xl md:text-2xl font-bold text-center">Our Journey</h2>
-          <div className="space-y-3 sm:space-y-4 max-w-xl mx-auto">
-            <div className="flex gap-2 sm:gap-3">
-              <div className="flex flex-col items-center">
-                <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-primary"></div>
-                <div className="w-px h-8 sm:h-10 bg-border"></div>
-              </div>
-              <div className="flex-1 pb-3 sm:pb-4">
-                <h3 className="font-semibold text-xs sm:text-sm">Project Inception</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1">
-                  Ansh Soni started developing PyShell with the vision of creating a modern, feature-rich terminal
-                  experience.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-2 sm:gap-3">
-              <div className="flex flex-col items-center">
-                <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-primary"></div>
-                <div className="w-px h-8 sm:h-10 bg-border"></div>
-              </div>
-              <div className="flex-1 pb-3 sm:pb-4">
-                <h3 className="font-semibold text-xs sm:text-sm">Team Formation</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1">
-                  Priyank Patel joined the team to enhance the web presence and create a comprehensive documentation
-                  website.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-2 sm:gap-3">
-              <div className="flex flex-col items-center">
-                <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-primary"></div>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-xs sm:text-sm">Present Day</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1">
-                  Continuously improving PyShell with new features and maintaining an active open-source community.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

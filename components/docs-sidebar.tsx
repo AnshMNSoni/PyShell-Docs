@@ -63,7 +63,7 @@ export function DocsSidebar() {
   return (
     <Sidebar className="hidden md:flex border-r">
       <SidebarContent>
-        <SidebarGroup>
+        <SidebarGroup> <br />
           <SidebarGroupLabel>Getting Started</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
