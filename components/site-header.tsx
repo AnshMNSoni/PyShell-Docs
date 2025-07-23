@@ -214,7 +214,7 @@ export function SiteHeader() {
                     className="flex items-center gap-3 px-3 py-3 text-base font-medium rounded-md transition-colors hover:bg-pink-50 dark:hover:bg-pink-950/20 text-pink-600 dark:text-pink-400"
                   >
                     <Heart className="h-4 w-4" />
-                    Like & Sponsor
+                    Like
                   </Link>
                 </div>
               </nav>
@@ -222,7 +222,7 @@ export function SiteHeader() {
               {/* Footer */}
               <div className="p-4 border-t">
                 <p className="text-xs text-muted-foreground text-center">
-                  © 2024 PyShell. Built with ❤️
+                  © {new Date().getFullYear()} <span className="text-emerald-600 dark:text-emerald-400 font-semibold">PyShell</span>. Built with ❤️
                 </p>
               </div>
             </div>
