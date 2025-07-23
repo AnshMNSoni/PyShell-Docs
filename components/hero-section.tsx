@@ -103,9 +103,7 @@ export function HeroSection() {
         </div>
       </section>
 
-      <div className="relative w-[98vw] h-[200px] xs:h-[150px] xs:w-[400px] flex items-center justify-center overflow-hidden">
-        {/* <div className="rounded-r-full  pointer-events-none absolute left-0 top-0 h-full w-5 bg-gradient-to-r from-black via-black/70 to-transparent backdrop-blur-sm z-10" />
-        <div className="rounded-l-full  pointer-events-none absolute right-0 top-0 h-full w-5 bg-gradient-to-l from-black via-black/70 to-transparent backdrop-blur-sm z-10" /> */}
+      <div className="dark:bg-[#101012] relative w-[98vw] h-[200px] xs:h-[150px] xs:w-[400px] flex items-center justify-center overflow-hidden">
         <div className="relative z-0 w-full">
           <VelocityScroll> Pyshell is the <span className="text-green-600 dark:text-green-500">future of Terminals </span> </VelocityScroll>
         </div>
