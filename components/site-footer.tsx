@@ -28,7 +28,7 @@ export function SiteFooter() {
               <span className="font-bold text-lg sm:text-xl">PyShell</span>
             </div>
             <p className="text-xs sm:text-sm text-muted-foreground">
-              The Future of Terminals/CLI. An advanced Python-based terminal with powerful features for developers.
+              The Future of Terminals. An advanced Python based terminal with powerful features for developers.
             </p>
           </div>
 
@@ -119,7 +119,7 @@ export function SiteFooter() {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-border pt-6 sm:pt-8 mt-6 sm:mt-8">
           <p className="text-xs sm:text-sm text-muted-foreground">
-            © {new Date().getFullYear()} PyShell. All rights reserved.
+            © {new Date().getFullYear()} <span className="text-emerald-600 dark:text-emerald-400 font-semibold">PyShell</span>. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <Link href="/privacy-policy" className="text-xs sm:text-sm text-muted-foreground hover:text-primary">

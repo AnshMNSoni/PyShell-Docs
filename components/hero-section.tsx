@@ -84,12 +84,12 @@ export function HeroSection() {
                   <div className="hidden sm:block">
                     <div className="mb-1 break-words">- calc: Open calculator</div>
                     <div className="mb-1 break-words">- weather: Check weather</div>
-                    <div className="mb-1 break-words">- schedule: Manage tasks</div>
-                    <div className="mb-1 break-words">- genpass: Generate password</div>
-                    <div className="mb-1 break-words">- git: Git dashboard</div>
+                    <div className="mb-1 break-words">- stock: Get Market Analysis</div>
                     <div className="mb-1 break-words">- music: Play songs</div>
-                    <div className="mb-1 break-words">- voice: Activate voice input</div>
                     <div className="mb-1 break-words">- layout: Change terminal layout</div>
+                    <div className="mb-1 break-words">- schedule: Manage tasks</div>
+                    <div className="mb-1 break-words">- git: Git dashboard</div>
+                    <div className="mb-1 break-words">- voice: Activate voice input</div>
                   </div>
                   <div className="block sm:hidden mb-1 break-words">- calc, weather, git, music...</div>
                   <div className="mb-2 break-words">and many more...</div>

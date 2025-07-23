@@ -1,6 +1,6 @@
 "use client"
 
-import { Calculator, Calendar, Cloud, Key, Terminal, Music, GitBranch, Mic, Lock, Layout, Cpu } from "lucide-react"
+import { Calculator, Calendar, Cloud, TrendingUp, Key, Terminal, Music, GitBranch, Mic, Lock, Layout, Cpu } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useInView } from "react-intersection-observer"
 import { useEffect, useState } from "react"
@@ -61,6 +61,11 @@ export function FeatureSection() {
       icon: Mic,
       title: "Voice Input",
       description: "Control your terminal with voice commands",
+    },
+    {
+      icon: TrendingUp,
+      title: "Stock Analysis",
+      description: "Get real-time stock trends and insights via terminal",
     },
   ]
 
