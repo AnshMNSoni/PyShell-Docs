@@ -12,7 +12,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "PyShell | Docs",
+  title: "PyShell | Documentation",
   description: "An advanced Python-based terminal with powerful features for developers",
   icons: {
     icon: "/fav.png",
