@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
 import { SidebarTrigger } from "@/components/sidebar-provider"
-import { Terminal, Github, Menu, Linkedin } from "lucide-react"
+import { Terminal, Github, Menu, Linkedin, Heart } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { useState } from "react"
@@ -69,7 +69,20 @@ export function SiteHeader() {
               <span className="sr-only">LinkedIn</span>
             </Link>
           </Button>
+
+          {/* ❤️ Sponsor / Like button */}
+          <Link
+            href="https://github.com/sponsors/AnshMNSoni"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-2 hidden sm:inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium text-gray-900 dark:text-gray-200 transition-all border-pink-500 dark:hover:border-pink-900 hover:bg-pink-100 dark:hover:bg-[#020817]"
+          >
+            <Heart className="w-4 h-4 text-pink-500" />
+            Like
+          </Link>
+
           <ModeToggle />
+
           <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <DropdownMenuTrigger asChild className="md:hidden">
               <Button variant="outline" size="icon">
@@ -91,6 +104,11 @@ export function SiteHeader() {
               <DropdownMenuItem asChild>
                 <Link href="https://linkedin.com/company/py-shell" target="_blank" rel="noopener noreferrer">
                   LinkedIn
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="https://github.com/sponsors/AnshMNSoni" target="_blank" rel="noopener noreferrer">
+                  Like ❤️
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
