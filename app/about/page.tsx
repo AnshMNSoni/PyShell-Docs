@@ -22,7 +22,7 @@ export default function AboutPage() {
     },
     {
       name: "Priyank Patel",
-      role: "Developer of PyShell Website",
+      role: "Web-Developer",
       description: "Web and GUI developer",
       image: "/pp.jpg?height=600&width=600",
       github: "https://github.com/Patel-Priyank-1602/",
@@ -48,6 +48,21 @@ export default function AboutPage() {
         { icon: Palette, label: "UI/UX Designer" },
       ],
     },
+    {
+  name: "Yug Patel",
+  role: "Web Developer",
+  description: "Passionate Frontend and Auto-Cad Designer ",
+  image: "/yp.png?height=600&width=600", // Replace with your actual image path
+  github: "https://github.com/Yug1275", // Update if different
+  linkedin: "https://www.linkedin.com/in/yugpatel040205", // Update if different
+  email: "yjpatel@gmail.com", // Replace with your actual email
+  specialties: [
+    { icon: Globe, label: "Solving real-world problems with tech." },
+    { icon: Palette, label: "Frontend Web Development" },
+    { icon: Code, label: "Auto-Cad" }
+  ]
+}
+
   ]
 
   return (
