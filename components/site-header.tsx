@@ -19,6 +19,7 @@ export function SiteHeader() {
   const navItems = [
     { label: "Home", href: "/" },
     { label: "Documentation", href: "/docs" },
+    { label: "Web Servies", href: "/docs/webservices" },
     { label: "Installation", href: "/docs/installation" },
     { label: "Events", href: "/events" },
     { label: "About Us", href: "/about" },

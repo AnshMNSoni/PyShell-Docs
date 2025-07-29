@@ -1,5 +1,4 @@
 "use client";
-
 import { ContactSection } from "@/components/contact-section";
 import CookieBanner from "@/components/CookieBanner";
 import { CTASection } from "@/components/cta-section";
@@ -22,16 +21,13 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // Only check for cookie consent after loading is complete and component is mounted
     if (!isLoading && mounted) {
-      // Add 5 second delay before showing cookie banner
       const timer = setTimeout(() => {
         const hasMadeChoice = sessionStorage.getItem("cookieConsent");
         if (!hasMadeChoice) {
           setIsCookieBannerVisible(true);
         }
       }, 5000);
-
       return () => clearTimeout(timer);
     }
   }, [isLoading, mounted]);
@@ -44,16 +40,13 @@ export default function Home() {
     setIsLoading(false);
   };
 
-  // Don't render anything until mounted to prevent hydration mismatch
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   return (
     <div className="relative min-h-screen">
       <Preloader onLoadingComplete={handleLoadingComplete} />
       
-      {/* Blurred overlay with slow fade-out */}
+      {/* Blurred overlay */}
       {isCookieBannerVisible && !isLoading && (
         <div
           className={`fixed inset-0 bg-white bg-opacity-10 backdrop-blur-sm z-40 pointer-events-none transition-opacity duration-[1500ms] ease-in-out ${
@@ -61,7 +54,23 @@ export default function Home() {
           }`}
         />
       )}
-      <main className={`flex-1 ${isCookieBannerVisible ? "pointer-events-none" : ""} ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-500`}>
+
+      <main
+        className={`flex-1 ${
+          isCookieBannerVisible ? "pointer-events-none" : ""
+        } ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-500`}
+      >
+        {/* Scrolling Disclaimer with Continuous Loop */}
+        <div className="w-full bg-green-600 text-white py-2 overflow-hidden relative">
+          <div className="flex animate-marquee-infinite">
+            <div className="flex-shrink-0 flex items-center justify-center min-w-full">
+              <span className="px-8 whitespace-nowrap">
+                Pyshell Website Phase 1 is Live Now! Experience it and share your reviews and suggestions with us. To access it, please visit the WebService page.
+              </span>
+            </div>
+          </div>
+        </div>
+
         <HeroSection />
         <StatsSection />
         <FeatureSection />
@@ -70,7 +79,30 @@ export default function Home() {
         <ContactSection />
         <CTASection />
       </main>
-      {isCookieBannerVisible && !isLoading && <CookieBanner onChoice={handleCookieChoice} />}
+
+      {isCookieBannerVisible && !isLoading && (
+        <CookieBanner onChoice={handleCookieChoice} />
+      )}
+
+      <style jsx>{`
+        @keyframes marquee-infinite {
+          0% {
+            transform: translateX(0%);
+          }
+          100% {
+            transform: translateX(-100%);
+          }
+        }
+
+        .animate-marquee-infinite {
+          animation: marquee-infinite 20s linear infinite;
+        }
+
+        /* Pause animation on hover */
+        .animate-marquee-infinite:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </div>
   );
 }
