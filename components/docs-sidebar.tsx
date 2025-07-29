@@ -76,12 +76,13 @@ export function DocsSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive("/docs/tutorial")}>
-                  <Link href="/docs/tutorial" className="flex items-center gap-2">
-                    <GraduationCap className="h-4 w-4 shrink-0" />
-                    <span>Tutorial</span>
+                <SidebarMenuButton asChild isActive={isActive("/docs/commands")}>
+                  <Link href="/docs/commands" className="flex items-center gap-2">
+                    <Command className="h-4 w-4 shrink-0" />
+                    <span>Commands</span>
                   </Link>
                 </SidebarMenuButton>
+
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={isActive("/docs/installation")}>
@@ -195,10 +196,10 @@ export function DocsSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive("/docs/commands")}>
-                      <Link href="/docs/commands" className="flex items-center gap-2">
-                        <Command className="h-4 w-4 shrink-0" />
-                        <span>Commands</span>
+                    <SidebarMenuButton asChild isActive={isActive("/docs/tutorial")}>
+                      <Link href="/docs/tutorial" className="flex items-center gap-2">
+                        <GraduationCap className="h-4 w-4 shrink-0" />
+                        <span>Tutorial</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

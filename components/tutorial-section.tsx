@@ -93,7 +93,7 @@ const tutorialSteps: TutorialStep[] = [
               <Terminal className="h-8 w-8 text-blue-600" />
               <div>
                 <h3 className="font-bold text-lg">PyShell</h3>
-                <p className="text-sm text-muted-foreground">The Future of Terminals/CLI</p>
+                <p className="text-sm text-muted-foreground">The Future of Terminals</p>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-2 text-xs">
