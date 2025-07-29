@@ -325,19 +325,242 @@ class GitDashboard:
       screenshot: "/placeholder.svg?height=300&width=500",
     },
     "Linux Commands Support": {
-      code: "Code example coming soon...",
+      code: `def list_files(self):
+        output = "\nFiles and Directories:\n"
+        for item in os.listdir():
+            output += f" - {item}\n"
+        return output
+
+    def create_file(self, filename):
+        with open(filename, 'w') as f:
+            f.write("") 
+        return f"✅ File '{filename}' created."
+
+    def delete_file(self, filename):
+        if os.path.exists(filename):
+            os.remove(filename)
+            return f"🗑 File '{filename}' deleted."
+        else:
+            return "⚠ File not found."
+
+    def system_info(self):
+        cpu = psutil.cpu_percent()
+        ram = psutil.virtual_memory().percent
+        return f"🖥 System Info:\n- CPU Usage: {cpu}%\n- RAM Usage: {ram}%"
+
+    def network_info(self):
+        try:
+            local_ip = socket.gethostbyname(socket.gethostname())
+            external_ip = requests.get("https://api64.ipify.org").text
+            return f"🌐 Network Info:\n- Local IP: {local_ip}\n- External IP: {external_ip}"
+        except Exception as e:
+            return f"❌ Network Error: {e}"
+
+    def create_folder(self, folder_name):
+        os.makedirs(folder_name, exist_ok=True)
+        return f"📁 Folder '{folder_name}' created."
+
+    def delete_folder(self, folder_name):
+        if os.path.exists(folder_name):
+            os.rmdir(folder_name)
+            return f"🗑 Folder '{folder_name}' deleted."
+        else:
+            return "⚠ Folder not found or not empty."
+
+    def change_directory(self, path):
+        try:
+            os.chdir(path)
+            return f"📂 Changed directory to: {os.getcwd()}"
+        except Exception as e:
+            return f"❌ Error: {str(e)}"
+
+    def text_editor(self, filename):
+        with open(filename, 'a+') as f:
+            f.write("Edited via API\n")
+        return f"📝 File '{filename}' updated (via API)."
+
+    def rename_item(self, args):
+        if len(args) < 2:
+            return "Usage: rename <old_name> <new_name>"
+        old_name, new_name = args
+        with lock:
+            try:
+                os.rename(old_name, new_name)
+                return f"🔁 Renamed '{old_name}' to '{new_name}'"
+            except FileNotFoundError:
+                return "❌ Item not found."
+
+    def move_file(self, args):
+        if len(args) < 2:
+            return "Usage: move <source> <destination>"
+        src, dest = args
+        with lock:
+            try:
+                shutil.move(src, dest)
+                return f"📦 Moved '{src}' to '{dest}'"
+            except Exception as e:
+                return f"❌ Error: {str(e)}"
+
+    def copy_file(self, args):
+        if len(args) < 2:
+            return "Usage: copy <source> <destination>"
+        src, dest = args
+        with lock:
+            try:
+                shutil.copy(src, dest)
+                return f"📄 Copied '{src}' to '{dest}'"
+            except Exception as e:
+                return f"❌ Error: {str(e)}"`,
       screenshot: "/placeholder.svg?height=300&width=500",
     },
     "Git History": {
       code: "Code example coming soon...",
       screenshot: "/placeholder.svg?height=300&width=500",
     },
-    "Advanced Math Functions": {
-      code: "Code example coming soon...",
+    "Equation": {
+      code: `def solve_equation(self, args):
+        if not args:
+            return "Usage: equation <equation1> [; <equation2>; ...]"
+
+        try:
+            input_str = " ".join(args)
+            raw_equations = [eq.strip() for eq in input_str.split(';') if eq.strip()]
+
+            symbol_names = sorted(set(re.findall(r'[a-zA-Z_]\w*', input_str)))
+            sym_vars_dict = {name: symbols(name) for name in symbol_names}
+
+            equations = []
+            for eq_str in raw_equations:
+                if '=' in eq_str:
+                    lhs, rhs = eq_str.split('=')
+                    lhs_expr = sympify(lhs.strip(), locals=sym_vars_dict)
+                    rhs_expr = sympify(rhs.strip(), locals=sym_vars_dict)
+                    equations.append(Eq(lhs_expr, rhs_expr))
+                else:
+                    lhs_expr = sympify(eq_str, locals=sym_vars_dict)
+                    equations.append(Eq(lhs_expr, 0))
+
+            vars_in_equations = list(set().union(*[eq.free_symbols for eq in equations]))
+
+            if len(equations) < len(vars_in_equations):
+                vars_to_solve = vars_in_equations[:len(equations)]
+            else:
+                vars_to_solve = vars_in_equations
+
+            solutions = solve(equations, vars_to_solve, dict=True)
+
+            if not solutions:
+                return "⚠ No solutions found or system is inconsistent."
+
+            result = f"🧮 System of Equations:\n"
+            result += "\n".join([pretty(eq) for eq in equations])
+            result += "\n\n✅ Solutions:\n"
+
+            for i, sol in enumerate(solutions, 1):
+                result += f"{i}.\n"
+                for k, v in sol.items():
+                    result += f"{str(k)} = {str(v.evalf())}\n"
+                result += "\n"
+
+            return result.strip()
+
+        except Exception as e:
+            return f"❌ Error: {e}"`,
+      screenshot: "/placeholder.svg?height=300&width=500",
+    },
+    "Differential Equation": {
+      code: `def solve_differential(self, *args: str):
+        x = symbols('x')
+        y = Function('y')
+
+        if not args:
+            help_text = (
+                "📘 To solve a differential equation, provide it in the following format:"
+                "- Use y(x) as the dependent variable"
+                "- Use Derivative(y(x), x) for dy/dx"
+                "- Use Derivative(y(x), x, x) for second-order derivatives"
+                "📝 Example:"
+                "differential Derivative(y(x), x, x) + 2*Derivative(y(x), x) = exp(2*x)*tan(x)"
+            )
+            return None, help_text  # Now returns two values
+
+        try:
+            full_equation = " ".join(args)
+            lhs_str, rhs_str = full_equation.split('=')
+            lhs = parse_expr(lhs_str.strip(), evaluate=False)
+            rhs = parse_expr(rhs_str.strip(), evaluate=False)
+            eqn = Eq(lhs, rhs)
+            solution = dsolve(eqn, y(x))
+            return solution, None  # Successful result
+        except Exception as e:
+            return None, f"Error: {str(e)}"
+
+
+    def _render_latex_to_image(self, latex_str: str):
+        output_path = 'static/solution.png'
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+        plt.figure(figsize=(10, 1.5))
+        plt.axis('off')
+        plt.text(0.5, 0.5, f"{latex_str}", ha='center', va='center', fontsize=16)
+        plt.savefig(output_path, bbox_inches='tight', pad_inches=0.5, dpi=300)
+        plt.close()
+
+        # Open image in browser
+        webbrowser.open('https://pyshell-backend.onrender.com/static/solution.png')`,
       screenshot: "/placeholder.svg?height=300&width=500",
     },
     "Data Visualization": {
-      code: "Code example coming soon...",
+      code: `def plot_explicit(self, equation, x_min, x_max):
+        try:
+            x = np.linspace(float(x_min), float(x_max), 500)
+            y = eval(equation, {**SAFE_FUNCTIONS, "x": x})
+            plt.plot(x, y, label=f"f(x) = {equation}", color='blue')
+            plt.title("Explicit Graph of the Function")
+            plt.xlabel("x-axis")
+            plt.ylabel("f(x)")
+            plt.grid(True)
+            plt.legend()
+
+            filename = f"plot_{uuid.uuid4().hex}.png"
+            filepath = os.path.join("static", filename)
+            plt.savefig(filepath)
+            plt.close()
+
+            webbrowser.open(filepath)
+
+            return filename
+
+        except Exception as e:
+            return f"Error: {str(e)}"
+            
+            def plot_implicit(self, equation, x_min, x_max, y_min, y_max):
+        try:
+            x = np.linspace(float(x_min), float(x_max), 400)
+            y = np.linspace(float(y_min), float(y_max), 400)
+            X, Y = np.meshgrid(x, y)
+
+            Z = eval(equation, {**SAFE_FUNCTIONS, "x": X, "y": Y})
+
+            plt.contour(X, Y, Z, levels=[0], colors='red')
+            plt.title("Implicit Graph (Contour Plot)")
+            plt.xlabel("x-axis")
+            plt.ylabel("y-axis")
+            plt.grid(True)
+            plt.axhline(0, color='black', linewidth=0.5)
+            plt.axvline(0, color='black', linewidth=0.5)
+
+            filename = f"plot_{uuid.uuid4().hex}.png"
+            filepath = os.path.join("static", filename)
+            plt.savefig(filepath)
+            plt.close()
+
+            webbrowser.open(filepath) 
+
+            return filename
+
+        except Exception as e:
+            return f"Error: {str(e)}"`,
       screenshot: "/placeholder.svg?height=300&width=500",
     },
   }
@@ -396,8 +619,13 @@ class GitDashboard:
   const advancedFeatures = [
     {
       icon: Calculator,
-      title: "Advanced Math Functions",
+      title: "Equation",
       desc: "Perform calculus, logarithmic, and trigonometric operations",
+    },
+    {
+    icon: Calculator,
+    title: "Differential Equation",  
+    desc: "Solve and analyze differential equations",
     },
     {
       icon: Mic,

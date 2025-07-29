@@ -55,7 +55,7 @@ export default function AboutPage() {
   image: "/yp.png?height=600&width=600", // Replace with your actual image path
   github: "https://github.com/Yug1275", // Update if different
   linkedin: "https://www.linkedin.com/in/yugpatel040205", // Update if different
-  email: "yjpatel@gmail.com", // Replace with your actual email
+  email: "yjpatel1275@gmail.com", // Replace with your actual email
   specialties: [
     { icon: Globe, label: "Solving real-world problems with tech." },
     { icon: Palette, label: "Frontend Web Development" },

@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Settings2 } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle,} from "@/components/ui/card"
+import { ListChecks, DollarSign } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import {
   Terminal,
@@ -58,9 +60,6 @@ const standardCommands = [
   { name: "stop", description: "Stop running operations", icon: Activity, category: "System" },
   { name: "cls", description: "Clear terminal screen", icon: Terminal, category: "Terminal" },
   { name: "terminal", description: "Terminal operations", icon: Terminal, category: "Terminal" },
-  { name: "game", description: "Built-in games and entertainment", icon: Gamepad2, category: "Entertainment" },
-  { name: "pybot", description: "AI assistant integration", icon: Bot, category: "AI" },
-  { name: "plot", description: "Data visualization and plotting", icon: TrendingUp, category: "Visualization" },
   { name: "exit", description: "Exit PyShell", icon: Terminal, category: "Terminal" },
 ]
 
@@ -79,7 +78,6 @@ const gitCommands = [
 ]
 
 const uniqueGitFeatures = [
-  { name: "play", description: "Interactive Git playground", icon: Play, category: "Interactive" },
   { name: "git-smart", description: "AI-powered Git suggestions", icon: Sparkles, category: "AI" },
   { name: "git-help", description: "Contextual Git help", icon: GitBranch, category: "Help" },
   { name: "git-history", description: "Visual commit history", icon: History, category: "History" },
@@ -92,6 +90,17 @@ const uniqueGitFeatures = [
   { name: "git-reminder", description: "Git task reminders", icon: Bell, category: "Productivity" },
   { name: "git-offline_sync", description: "Offline synchronization", icon: WifiOff, category: "Sync" },
 ]
+
+const advancedPyShellFeatures = [
+  { name: "pybot", description: "AI assistant integration", icon: Bot, category: "AI" },
+  { name: "plot", description: "Data visualization and plotting", icon: TrendingUp, category: "Visualization" },
+  { name: "game", description: "Built-in games and entertainment", icon: Gamepad2, category: "Entertainment" },
+  { name: "play", description: "Interactive Git playground", icon: Play, category: "Interactive" },
+  { name: "bulk-rename", description: "Easily rename multiple files using pattern-based logic", icon: ListChecks, category: "Productivity" },
+  { name: "stock", description: "Track live stock prices and market trends", icon: DollarSign, category: "Finance" },
+]
+
+
 
 const categoryColors = {
   "File Operations": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
@@ -158,29 +167,41 @@ export default function CommandsPage() {
         <p className="text-lg text-muted-foreground mt-2">Complete reference of all available PyShell commands</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 border-blue-200 dark:border-blue-800">
-          <CardContent className="p-6 text-center">
-            <Terminal className="h-8 w-8 mx-auto mb-2 text-blue-600" />
-            <div className="text-2xl font-bold text-blue-700 dark:text-blue-300">{standardCommands.length}</div>
-            <div className="text-sm text-blue-600 dark:text-blue-400">Standard Commands</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950 dark:to-green-900 border-green-200 dark:border-green-800">
-          <CardContent className="p-6 text-center">
-            <GitBranch className="h-8 w-8 mx-auto mb-2 text-green-600" />
-            <div className="text-2xl font-bold text-green-700 dark:text-green-300">{gitCommands.length}</div>
-            <div className="text-sm text-green-600 dark:text-green-400">Git Commands</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900 border-purple-200 dark:border-purple-800">
-          <CardContent className="p-6 text-center">
-            <Sparkles className="h-8 w-8 mx-auto mb-2 text-purple-600" />
-            <div className="text-2xl font-bold text-purple-700 dark:text-purple-300">{uniqueGitFeatures.length}</div>
-            <div className="text-sm text-purple-600 dark:text-purple-400">Unique Features</div>
-          </CardContent>
-        </Card>
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+  <Card className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 border-blue-200 dark:border-blue-800">
+    <CardContent className="p-6 text-center">
+      <Terminal className="h-8 w-8 mx-auto mb-2 text-blue-600" />
+      <div className="text-2xl font-bold text-blue-700 dark:text-blue-300">{standardCommands.length}</div>
+      <div className="text-sm text-blue-600 dark:text-blue-400">Standard Commands</div>
+    </CardContent>
+  </Card>
+
+  <Card className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950 dark:to-green-900 border-green-200 dark:border-green-800">
+    <CardContent className="p-6 text-center">
+      <GitBranch className="h-8 w-8 mx-auto mb-2 text-green-600" />
+      <div className="text-2xl font-bold text-green-700 dark:text-green-300">{gitCommands.length}</div>
+      <div className="text-sm text-green-600 dark:text-green-400">Git Commands</div>
+    </CardContent>
+  </Card>
+
+  <Card className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900 border-purple-200 dark:border-purple-800">
+    <CardContent className="p-6 text-center">
+      <Sparkles className="h-8 w-8 mx-auto mb-2 text-purple-600" />
+      <div className="text-2xl font-bold text-purple-700 dark:text-purple-300">{uniqueGitFeatures.length}</div>
+      <div className="text-sm text-purple-600 dark:text-purple-400">Unique Features</div>
+    </CardContent>
+  </Card>
+
+  <Card className="bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950 dark:to-pink-900 border-pink-200 dark:border-pink-800">
+  <CardContent className="p-6 text-center">
+    <Settings2 className="h-8 w-8 mx-auto mb-2 text-pink-600" />
+    <div className="text-2xl font-bold text-pink-700 dark:text-pink-300">{advancedPyShellFeatures.length}</div>
+    <div className="text-sm text-pink-600 dark:text-pink-400">Advanced PyShell Features</div>
+  </CardContent>
+</Card>
+</div>
+
+
 
       <section className="space-y-6">
         <div>
@@ -225,6 +246,24 @@ export default function CommandsPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {uniqueGitFeatures.map((cmd) => (
+            <CommandCard
+              key={cmd.name}
+              command={cmd.name}
+              icon={cmd.icon}
+              description={cmd.description}
+              category={cmd.category}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-6">
+        <div>
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight">Advanced PyShell Features</h2>
+          <p className="text-muted-foreground mt-2">Designed to elevate terminal productivity with smart automation tools.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {advancedPyShellFeatures.map((cmd) => (
             <CommandCard
               key={cmd.name}
               command={cmd.name}
