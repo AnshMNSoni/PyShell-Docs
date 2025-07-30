@@ -48,12 +48,6 @@ const features = [
     badge: "Instant Calc",
   },
   {
-    icon: TrendingUpDown,
-    title: "Differential Equations",
-    description: "Solve and visualize differential equations with built-in numerical and analytical tools.",
-    badge: "Advanced Math",
-  },
-  {
     icon: PlayCircle,
     title: "Interactive Play Mode",
     description: "Experiment with code in a sandboxed playground for rapid prototyping and testing.",
@@ -81,6 +75,11 @@ const features = [
 
 // Embedded upcoming features data
 const upcomingFeatures = [
+  {
+    icon: TrendingUpDown,
+    title: "Differential Equations",
+    description: "Solve and visualize differential equations with built-in numerical and analytical tools.",
+  },
   {
     icon: Gamepad,
     title: "Game Development Toolkit",

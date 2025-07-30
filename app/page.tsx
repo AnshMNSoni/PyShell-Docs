@@ -65,7 +65,7 @@ export default function Home() {
           <div className="flex animate-marquee-infinite">
             <div className="flex-shrink-0 flex items-center justify-center min-w-full">
               <span className="px-8 whitespace-nowrap">
-                Pyshell Website Phase 1 is Live Now! Experience it and share your reviews and suggestions with us. To access it, please visit the WebService page.
+                Pyshell Website Phase 1 is Live Now!
               </span>
             </div>
           </div>

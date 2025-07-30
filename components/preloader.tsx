@@ -1,7 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
-import { cn } from "@/lib/utils"
+import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 interface PreloaderProps {
@@ -12,176 +11,208 @@ interface PreloaderProps {
 export function Preloader({ duration = 3500, onLoadingComplete }: PreloaderProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [progress, setProgress] = useState(0)
-  const [visibleLetters, setVisibleLetters] = useState(0)
-  const particlesRef = useRef<HTMLDivElement>(null)
-  const brandName = "PyShell"
 
-  // Create particles on mount
-  useEffect(() => {
-    if (!particlesRef.current) return
-
-    const particlesContainer = particlesRef.current
-    const particleCount = 50
-
-    // Clear any existing particles
-    particlesContainer.innerHTML = ""
-
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement("div")
-      particle.className = "absolute rounded-full bg-primary/30"
-
-      // Random size between 2px and 6px
-      const size = Math.random() * 4 + 2
-      particle.style.width = `${size}px`
-      particle.style.height = `${size}px`
-
-      // Random position
-      particle.style.left = `${Math.random() * 100}%`
-      particle.style.top = `${Math.random() * 100}%`
-
-      // Random animation duration between 3s and 8s
-      const animDuration = Math.random() * 5 + 3
-      particle.style.animation = `float ${animDuration}s infinite ease-in-out`
-
-      // Random delay
-      particle.style.animationDelay = `${Math.random() * 5}s`
-
-      // Random opacity
-      particle.style.opacity = `${Math.random() * 0.5 + 0.1}`
-
-      particlesContainer.appendChild(particle)
-    }
-  }, [])
-
-  // Handle progress and letter reveal
   useEffect(() => {
     const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        const newProgress = prev + 100 / (duration / 50)
-        return newProgress > 100 ? 100 : newProgress
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(progressInterval)
+          return 100
+        }
+        return prev + (100 / (duration / 50))
       })
     }, 50)
 
-    // Reveal letters one by one
-    const letterInterval = setInterval(
-      () => {
-        setVisibleLetters((prev) => {
-          const newCount = prev + 1
-          return newCount > brandName.length ? brandName.length : newCount
-        })
-      },
-      duration / (brandName.length + 2),
-    )
-
-    // Complete loading
     const timer = setTimeout(() => {
       setIsLoading(false)
-      if (onLoadingComplete) onLoadingComplete()
+      onLoadingComplete?.()
     }, duration)
 
     return () => {
-      clearInterval(progressInterval)
-      clearInterval(letterInterval)
       clearTimeout(timer)
+      clearInterval(progressInterval)
     }
-  }, [duration, onLoadingComplete, brandName.length])
+  }, [duration, onLoadingComplete])
 
   return (
     <AnimatePresence>
       {isLoading && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
+          exit={{ opacity: 0, scale: 1.1 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-emerald-950 via-green-900 to-teal-950"
         >
-          {/* Particles background */}
-          <div ref={particlesRef} className="absolute inset-0 overflow-hidden opacity-70" />
-
-          {/* Main content */}
-          <div className="relative z-10 flex flex-col items-center px-4">
-            {/* Brand name with letter-by-letter reveal */}
-            <div className="relative mb-6 sm:mb-8 flex items-center justify-center h-16 sm:h-20">
-              {brandName.split("").map((letter, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={index < visibleLetters ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative"
-                >
-                  <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-primary relative z-10">
-                    {letter}
-                  </span>
-                  {/* Glow effect */}
-                  <span className="absolute inset-0 blur-md text-4xl sm:text-5xl md:text-6xl font-bold text-primary z-0">
-                    {letter}
-                  </span>
-                </motion.div>
-              ))}
-
-              {/* Cursor effect */}
+          {/* Background Particles */}
+          <div className="absolute inset-0 overflow-hidden">
+            {Array.from({ length: 50 }).map((_, i) => (
               <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-green-400/20 rounded-full"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
                 animate={{
-                  opacity: [1, 0, 1],
-                  height: visibleLetters >= brandName.length ? "1.5rem" : "2rem",
+                  y: [0, -20, 0],
+                  opacity: [0, 1, 0],
                 }}
                 transition={{
-                  opacity: { repeat: Number.POSITIVE_INFINITY, duration: 0.8 },
-                  height: { duration: 0.2 },
+                  duration: 3 + Math.random() * 2,
+                  repeat: Infinity,
+                  delay: Math.random() * 3,
                 }}
-                className={cn(
-                  "w-[2px] sm:w-[3px] bg-primary ml-1",
-                  visibleLetters >= brandName.length ? "animate-blink" : "",
-                )}
               />
-            </div>
-
-            {/* Tagline with typing effect */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={visibleLetters >= brandName.length ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-primary/70 text-xs sm:text-sm md:text-base mb-6 sm:mb-8 tracking-wider"
-            >
-              Your Code, Our Shell
-            </motion.div>
-
-            {/* Progress bar */}
-            <div className="w-36 sm:w-48 md:w-64 h-1 bg-muted rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-primary"
-                style={{ width: `${progress}%` }}
-                initial={{ width: "0%" }}
-                animate={{ width: `${progress}%` }}
-                transition={{ ease: "easeInOut" }}
-              />
-            </div>
-
-            {/* Loading text */}
-            <motion.div
-              className="mt-3 text-xs text-primary/50"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-            >
-              {progress < 33
-                ? "INITIALIZING SYSTEM"
-                : progress < 66
-                  ? "LOADING MODULES"
-                  : progress < 100
-                    ? "PREPARING INTERFACE"
-                    : "READY"}
-            </motion.div>
-
-            {/* Hexagon grid background effect */}
-            <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 opacity-20 overflow-hidden">
-              <div
-                className="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NiIgaGVpZ2h0PSI0OSI+PHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJ2YXIoLS1wcmktbWFyeSk7IiBzdHJva2Utd2lkdGg9IjEuNSIgZD0iTTAgNDIuNUw3LjE1IDI4LjUgMCAxNC41IDE0LjMgMGwyOC42IDE0LjUgMjguNTYtMTQuNUw4NiAwIDc4Ljg1IDE0LjUgODYgMjguNSA3MS43IDQzIDQzLjEgMjguNSAxNC41NCA0M3oiIG9wYWNpdHk9Ii4zIi8+PC9zdmc+')]"
-              />
-            </div>
+            ))}
           </div>
+
+          {/* Ring Line Animation */}
+          <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 flex items-center justify-center mb-8">
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 200 200">
+              {/* Outer Ring Line */}
+              <motion.circle
+                cx="100"
+                cy="100"
+                r="90"
+                fill="none"
+                stroke="url(#gradient1)"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeDasharray="20 10"
+                animate={{ rotate: 360 }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                style={{ transformOrigin: "100px 100px" }}
+              />
+              
+              {/* Middle Ring Line */}
+              <motion.circle
+                cx="100"
+                cy="100"
+                r="75"
+                fill="none"
+                stroke="url(#gradient2)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeDasharray="15 8"
+                animate={{ rotate: -360 }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                style={{ transformOrigin: "100px 100px" }}
+              />
+              
+              {/* Inner Ring Line */}
+              <motion.circle
+                cx="100"
+                cy="100"
+                r="60"
+                fill="none"
+                stroke="url(#gradient3)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeDasharray="10 5"
+                animate={{ rotate: 360 }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                style={{ transformOrigin: "100px 100px" }}
+              />
+
+              {/* Logo Image Centered */}
+              <foreignObject x="50" y="50" width="100" height="100" className="flex items-center justify-center">
+                <motion.div
+                  className="relative w-full h-full rounded-full overflow-hidden shadow-2xl ring-4 ring-emerald-400/30"
+                  animate={{
+                    boxShadow: [
+                      "0 0 20px rgba(16, 185, 129, 0.3)",
+                      "0 0 40px rgba(16, 185, 129, 0.6)",
+                      "0 0 20px rgba(16, 185, 129, 0.3)",
+                    ],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <img
+                    src="/pyshellcircle.png"
+                    alt="Preloader"
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+              </foreignObject>
+
+              {/* Gradient Definitions */}
+              <defs>
+                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#10b981" stopOpacity="0.8" />
+                  <stop offset="50%" stopColor="#34d399" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#6ee7b7" stopOpacity="0.6" />
+                </linearGradient>
+                <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#34d399" stopOpacity="0.6" />
+                  <stop offset="50%" stopColor="#10b981" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#059669" stopOpacity="0.5" />
+                </linearGradient>
+                <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#6ee7b7" stopOpacity="0.5" />
+                  <stop offset="50%" stopColor="#34d399" stopOpacity="0.7" />
+                  <stop offset="100%" stopColor="#10b981" stopOpacity="0.4" />
+                </linearGradient>
+                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#10b981" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#34d399" stopOpacity="1" />
+                </linearGradient>
+              </defs>
+            </svg>
+
+            {/* Background Glow for Rings */}
+            <motion.div
+              className="absolute inset-8 rounded-full bg-gradient-to-r from-emerald-400/10 to-green-400/10 blur-2xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </div>
+
+          {/* Spinning Borders */}
+          <motion.div
+            className="absolute inset-4 rounded-full border border-green-400/10"
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="absolute inset-8 rounded-full border border-emerald-400/10"
+            animate={{ rotate: -360 }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
         </motion.div>
       )}
     </AnimatePresence>
   )
 }
+
+export default Preloader
