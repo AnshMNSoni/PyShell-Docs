@@ -16,6 +16,7 @@ import {
   Layout,
   Cpu,
   X,
+  Atom,
 } from "lucide-react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import {
@@ -563,6 +564,19 @@ class GitDashboard:
             return f"Error: {str(e)}"`,
       screenshot: "/placeholder.svg?height=300&width=500",
     },
+    "Quantum Simulator": {
+      code: `
+class Simulator:
+    def open_simulator(self):
+        url = "https://quasimdottech.netlify.app/"
+        
+        return {
+            "status": "success",
+            "song_title": "Quantum Simulator",
+            "song_url": url
+        }`,
+      screenshot: "/placeholder.svg?height=300&width=500",
+    },
   }
 
   const productivityFeatures = [
@@ -636,6 +650,11 @@ class GitDashboard:
       icon: LineChart,
       title: "Data Visualization",
       desc: "Visualize data directly in your terminal",
+    },
+    {
+      icon: Atom,
+      title: "Quantum Simulator",
+      desc: "Simulate quantum circuits and algorithms",
     },
   ]
 
