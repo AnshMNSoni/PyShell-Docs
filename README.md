@@ -103,9 +103,6 @@ pip install -r requirements.txt
 python cli.py
 ```
 
-## 🔎 Future Work:
-1️⃣ Upscale it to the Operating system (i.e. MyOS)
-
 ## 🤝 Contributing to PyShell
 
 Thank you for considering contributing! Please follow these steps:
